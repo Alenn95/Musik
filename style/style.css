@@ -1,14 +1,28 @@
-html{
+html {
     font-family: 'Abel', sans-serif;
-    color:white;
+    color: white;
 }
 
-.tituloApp{
+.tituloApp {
     font-family: 'Abel', sans-serif;
     color: white;
     font-size: 2.3rem;
 }
 
-header{
+header {
     height: 8vh;
+}
+
+footer {
+    height: 10vh;
+}
+
+.homeIndicator {
+    position: absolute;
+    width: 134px;
+    height: 5px;
+    left: calc(50% - 134px/2 + 0.5px);
+    bottom: 8px;
+    background: #FFFFFF;
+    border-radius: 100px;
 }
