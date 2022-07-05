@@ -9,6 +9,13 @@ html {
     font-size: 2.3rem;
 }
 
+.letra {
+    font-family: 'Abel', sans-serif;
+    color: rgb(255, 255, 255);
+    font-size: 1.2rem;
+}
+
+
 header {
     height: 8vh;
 }
@@ -26,3 +33,51 @@ footer {
     background: #FFFFFF;
     border-radius: 100px;
 }
+
+.perfil {
+    height: 82vh;
+    background-image: url("/img/fondo.jpg");
+    background-attachment: scroll;
+    background-size: cover;
+}
+
+.perfilImg {
+    border-radius: 50%;
+}
+
+.login {
+    width: 70vw;
+    border-color: beige;
+    height: 40vh;
+    background-color: black ;
+}
+
+.redes {
+    width: 15vw;
+    height: 7vh;
+    background-color: transparent;
+    border-color: rgb(102, 22, 107) solid;
+    padding: .5rem;
+    cursor: pointer;
+    image-rendering: inherit;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.redes img {
+    width: 25px;
+    height: 25px;
+
+}
+
+.formLogin {
+    
+    background-color: transparent;
+    outline: 0;
+  border-width: 0 0 1px;
+  border-color: rgb(255, 255, 255);
+  color:white;
+
+}
+
