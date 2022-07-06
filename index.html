@@ -87,11 +87,40 @@
                     </div>
                 </div>
             </section>
-            <section class="Busqueda">
-                <div class="d-flex flex-column jusify-content-center align-items-center bg-dark">
 
+
+            <section v-show="pagina == 'reconocimiento'" class="sectionRecognize">
+
+                <div class="d-flex flex-wrap justify-content-center">                    
+                    
+                    <div v-if="recording=='off'" class="m-4 d-flex flex-wrap justify-content-center">
+                        <img onclick="grabarAudio()" src="/img/icons/microphone_icon.svg" alt="microphone_icon" class="recognizeButton">
+                        <p class="w-100 m-4 text-center textoRecognize">Press to recognize some music</p>
+                    </div>
+                    
+
+                    <div v-if="recording=='active'" class="m-4 d-flex flex-wrap justify-content-center">
+                        <img src="/img/circle-loader.gif" alt="recording..." class="recordingGif">
+                        <p class="w-100 mt-5 text-center textoRecognize">We are listening to you...</p>
+                        <p class="w-100 text-center textoRecognize">Keep singing :)</p>
+                    </div>
+                    
+                    <div v-if="recording=='searching'" class="m-4 d-flex flex-wrap justify-content-center">
+                        <img src="/img/loading.gif" alt="searching..." class="loadingGif">
+                        <p class="w-100 text-center textoRecognize">Now we are searching in our library...</p>
+                    </div>
+                    
+                    <div v-if="recording=='finished'" class="m-4 d-flex flex-wrap justify-content-center">
+                        <p class="w-100 text-center textoRecognize">We think this is what are you looking for...</p>                    
+                    </div>
+                    
+                    <iframe class="m-4" style="border-radius:12px" v-bind:src="spotifyLink" width="100%" height="380" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+    
                 </div>
+
             </section>
+
+
         </main>
         <footer class="bg-dark fixed-bottom">
             <div class="container">
@@ -102,9 +131,9 @@
                         </a>
                     </div>
                     <div class="p-2">
-                        <a href="">
-                            <img src="./img/icons/tapbar/Active=No-1.png" alt="">
-                        </a>
+                        
+                            <img v-on:click="pagina = 'reconocimiento'" src="./img/icons/tapbar/Active=No-1.png" alt="">
+                        
                     </div>
                     <div class="p-2">
                         <a href="">
