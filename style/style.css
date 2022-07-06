@@ -81,3 +81,17 @@ footer {
 
 }
 
+.loginButton{
+margin:.5rem;
+
+border-color:white;
+background-color: rgb(0, 0, 0);
+text-decoration: none;
+color: white;
+cursor: pointer;
+}
+
+.loginButton:hover{
+    filter:brightness(110%)
+}
+
