@@ -3,7 +3,7 @@ const app = Vue.createApp({
         return {
             pagina: "home",
             recording: "off",
-            audioApiResponse : "",
+            audioApiResponse: "",
             spotifyLink: "",
         }
     },
@@ -11,7 +11,7 @@ const app = Vue.createApp({
     created() {
 
     },
-    mounted() {        
+    mounted() {
     },
 
     methods: {
@@ -20,25 +20,40 @@ const app = Vue.createApp({
 
     computed: {
 
+        iconos: function () {
+            let perfil = document.getElementById("person");
+            let setup = document.getElementById("settings");
+            let busqueda = document.getElementById("search");
+            if (this.pagina != "perfil") {
+                perfil.setAttribute("class", "md-inactive")
+            }
+            if (this.pagina != "settings") {
+                setup.setAttribute("class", "md-inactive")
+            }
+            if (this.pagina != "search") {
+                busqueda.setAttribute("class", "md-inactive")
+            }
+        }
+
     }
 }).mount('#app')
 
 
 searchRequest = async () => {
     const rawResponse = await fetch('https://api.audd.io/', {
-        
+
         method: 'POST',
 
-        headers: {    
+        headers: {
             'Content-Type': 'multipart/form-data'
         },
 
-        body: JSON.stringify({            
-                api_token: "31499d3a2ab881cd488be239166ecb3a",
-                //url: "https://audd.tech/example.mp3",
-                audio: audioRecordedBase64,
-                return: "apple_music,spotify"            
-            })
+        body: JSON.stringify({
+            api_token: "31499d3a2ab881cd488be239166ecb3a",
+            //url: "https://audd.tech/example.mp3",
+            audio: audioRecordedBase64,
+            return: "apple_music,spotify"
+        })
     });
     const content = await rawResponse.json();
 
@@ -54,17 +69,17 @@ searchRequest = async () => {
 
 recognizeRequest = async () => {
     const rawResponse = await fetch('https://api.audd.io/recognizeWithOffset/', {
-            
+
         method: 'POST',
 
-        headers: {    
+        headers: {
             'Content-Type': 'multipart/form-data'
         },
 
-        body: JSON.stringify({            
-                api_token: "31499d3a2ab881cd488be239166ecb3a",            
-                audio: audioRecordedBase64
-            })
+        body: JSON.stringify({
+            api_token: "31499d3a2ab881cd488be239166ecb3a",
+            audio: audioRecordedBase64
+        })
     });
     const content = await rawResponse.json();
 
@@ -76,32 +91,32 @@ recognizeRequest = async () => {
 //---------------------------------------------
 
 const recordAudio = () =>
-  new Promise(async resolve => {
-    const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-    const mediaRecorder = new MediaRecorder(stream);
-    const audioChunks = [];
+    new Promise(async resolve => {
+        const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+        const mediaRecorder = new MediaRecorder(stream);
+        const audioChunks = [];
 
-    mediaRecorder.addEventListener("dataavailable", event => {
-      audioChunks.push(event.data);
-    });
-
-    const start = () => mediaRecorder.start();
-
-    const stop = () =>
-      new Promise(resolve => {
-        mediaRecorder.addEventListener("stop", () => {
-          const audioBlob = new Blob(audioChunks,{type: 'audio/ogg'});
-          const audioUrl = URL.createObjectURL(audioBlob);
-          const audio = new Audio(audioUrl);
-          const play = () => audio.play();
-          resolve({ audioBlob, audioUrl, play });
+        mediaRecorder.addEventListener("dataavailable", event => {
+            audioChunks.push(event.data);
         });
 
-        mediaRecorder.stop();
-      });
+        const start = () => mediaRecorder.start();
 
-    resolve({ start, stop });
-  });
+        const stop = () =>
+            new Promise(resolve => {
+                mediaRecorder.addEventListener("stop", () => {
+                    const audioBlob = new Blob(audioChunks, { type: 'audio/ogg' });
+                    const audioUrl = URL.createObjectURL(audioBlob);
+                    const audio = new Audio(audioUrl);
+                    const play = () => audio.play();
+                    resolve({ audioBlob, audioUrl, play });
+                });
+
+                mediaRecorder.stop();
+            });
+
+        resolve({ start, stop });
+    });
 
 const sleep = time => new Promise(resolve => setTimeout(resolve, time));
 
@@ -109,11 +124,11 @@ const blobToBase64 = blob => {
     const reader = new FileReader();
     reader.readAsDataURL(blob);
     return new Promise(resolve => {
-      reader.onloadend = () => {
-        resolve(reader.result);
-      };
+        reader.onloadend = () => {
+            resolve(reader.result);
+        };
     });
-  };
+};
 
 
 let audioRecorded;
@@ -123,26 +138,26 @@ let searchRecognized;
 
 grabarAudio = async () => {
 
-  app.recording = "active"
+    app.recording = "active"
 
-  const recorder = await recordAudio();
-  recorder.start();
-  console.log("Empieza grabacion")
-  await sleep(12000);  
-  const audio = await recorder.stop();
-  console.log("Terminó grabacion")
-  let audioFile = audio.audioBlob;
-  console.log(audioFile)
+    const recorder = await recordAudio();
+    recorder.start();
+    console.log("Empieza grabacion")
+    await sleep(12000);
+    const audio = await recorder.stop();
+    console.log("Terminó grabacion")
+    let audioFile = audio.audioBlob;
+    console.log(audioFile)
 
-  blobToBase64(audioFile).then(res => {    
-    audioRecordedBase64 = res.substring(res.indexOf(',')+1)    
-    app.recording = "searching"
-    //recognizeRequest()
-    //searchRequest() //Esta se usa
-  });
+    blobToBase64(audioFile).then(res => {
+        audioRecordedBase64 = res.substring(res.indexOf(',') + 1)
+        app.recording = "searching"
+        //recognizeRequest()
+        // searchRequest() //Esta se usa
+    });
 
-  audioRecorded = audio
-    
+    audioRecorded = audio
+
 };
 
 
