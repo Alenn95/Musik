@@ -20,7 +20,7 @@
 </head>
 
 <body>
-    <div id="#app">
+    <div id="app">
         <header class="bg-dark">
             <div class="container">
                 <div class="d-flex flex-row align-items-center justify-content-between">
@@ -44,7 +44,7 @@
                         </a>
                     </div>
                     <div class="p-2">
-                        <a href="">
+                        <a v-on:click="pagina = 'perfil'">
                             <img src="./img/icons/User.png" alt="">
                         </a>
                     </div>
@@ -52,7 +52,7 @@
             </div>
         </header>
         <main>
-            <section class="perfil">
+            <section v-show="pagina == 'perfil'" class="perfil">
                 <div class="d-flex flex-column align-items-center justify-content-center">
                     <img class="w-25 perfilImg mt-5" src="./img/silhouette.jpg" alt="User">
                     <div class="p-2 mt-2"> 

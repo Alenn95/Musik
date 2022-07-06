@@ -10,6 +10,7 @@ Vue.createApp({
 
     },
     mounted() {
+        console.log(this.pagina)
 
     },
 
