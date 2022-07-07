@@ -29,7 +29,7 @@
                         </a> -->
                         <span id="search" class="material-icons md-light md-24 ">
                             search
-                            </span>
+                        </span>
                     </div>
                     <div clas="p-2 flex-fill">
                         <h1 class="tituloApp mt-2">
@@ -42,8 +42,8 @@
                             <img src="./img/icons/Settings.png" alt="">
                         </a> -->
                         <span id="settings" class="material-icons md-light md-24">
-                           settings
-                            </span>
+                            settings
+                        </span>
                     </div>
                     <div class="p-2">
                         <!-- <a v-on:click="pagina = 'perfil'">
@@ -51,7 +51,7 @@
                         </a> -->
                         <span v-on:click="pagina = 'perfil'" id="person" class="material-icons md-light md-24">
                             person
-                            </span>
+                        </span>
                     </div>
                 </div>
             </div>
@@ -60,7 +60,7 @@
             <section v-show="pagina == 'perfil'" class="perfil">
                 <div class="d-flex flex-column align-items-center justify-content-center">
                     <img class="w-25 perfilImg mt-5" src="./img/silhouette.jpg" alt="User">
-                    <div class="p-2 mt-2"> 
+                    <div class="p-2 mt-2">
                         <h2 class="letra">Nombre de usuario</h2>
                     </div>
                     <div class="p-2 login mt-3 justify-content-center align-items-center">
@@ -75,9 +75,9 @@
                         </div>
                         <div class="d-flex flex-row mt-1 align-items-center justify-content-center">
                             <form class="p-2">
-                                <input type="text" class="formLogin mb-3" placeholder="Username" >
-                                
-                                <input type="text" class="formLogin" placeholder="Password" >
+                                <input type="text" class="formLogin mb-3" placeholder="Username">
+
+                                <input type="text" class="formLogin" placeholder="Password">
                             </form>
                         </div>
                         <div class="d-flex flex-row align-items-center justify-content-evenly mt-3">
@@ -86,40 +86,137 @@
                                 Register
                             </button>
                             <button class=" loginButton">
-                               Enter
+                                Enter
                             </button>
                         </div>
                     </div>
                 </div>
             </section>
+            <section v-show="pagina = 'perfilog'" class="perfilog">
+                <div class="d-flex flex-column justify-content-start bg-dark">
+                    <div class="d-flex flex-row align-items-center justify-content-start">
+                        <button class="btn btn-dark">
+                            <span class="material-icons md-light md-36">
+                                favorite
+                            </span>
+                        </button>
+                        <div class="d-flex flex-column justify-content-start align-items-center">
+                            <p class="letra">Tus canciones</p>
+                            <p class="letraChicaDisabled">X canciones</p>
+                        </div>
+                    </div>
+                    <div class="d-flex flex-column justify-content-start align-items-center">
+                        <div class="p-2 d-flex flex-row justify-content-between w-100">
+                            <span class="material-icons md-light md-24">
+                                download
+                            </span>
+                            <p class="letra"> Tus canciones</p>
+                            <span class="material-icons md-light md-24">
+                                chevron_right
+                            </span>
+                        </div>
+                        <div class="p-2 d-flex flex-row justify-content-between w-100">
+                            <span class="material-icons md-light md-24">
+                                music_note
+                            </span>
+                            <p class="letra"> Musica</p>
+                            <span class="material-icons md-light md-24">
+                                chevron_right
+                            </span>
+                        </div>
+                        <div class="p-2 d-flex flex-row justify-content-between w-100">
+                            <span class="material-icons md-light md-24">
+                                queue_music
+                            </span>
+                            <p class="letra"> Playlist</p>
+                            <span class="material-icons md-light md-24">
+                                chevron_right
+                            </span>
+                        </div>
+                        <div class="p-2 d-flex flex-row justify-content-between w-100">
+                            <span class="material-icons md-light md-24">
+                                settings_voice
+                            </span>
+                            <p class="letra"> Tus reconocimientos</p>
+                            <span class="material-icons md-light md-24">
+                                chevron_right
+                            </span>
+                        </div>
+                        <div class="p-2 d-flex flex-row justify-content-between w-100">
+                            <span class="material-icons md-light md-24">
+                                person_3
+                            </span>
+                            <p class="letra"> Artistas</p>
+                            <span class="material-icons md-light md-24">
+                                chevron_right
+                            </span>
+                        </div>
+                    </div>
 
+                    <h3 class="letra">Tus ultimas escuchas</h3>
+
+                    <div class="d-flex flex-column align-items-center">
+                        <div class="d-flex flex-row align-items-center justify-content-between w-98">
+                            <img class="w-25" src="./img/silhouette.jpg" alt="">
+                            <div class="d-flex flex-column  justify-content-start">
+                                <p class="letra">artista X</p>
+                                <p class="letraChicaDisabled">
+                                    disco de tal año
+                                    20 canciones
+                                </p>
+                            </div>
+                           
+                            <span class="material-icons md-light md-24">
+                                more_vert
+                            </span>
+                        </div>
+                        <div class="d-flex flex-row align-items-center justify-content-between w-98">
+                            <img class="w-25" src="./img/silhouette.jpg" alt="">
+                            <div class="d-flex flex-column  justify-content-start">
+                                <p class="letra">artista X</p>
+                                <p class="letraChicaDisabled">
+                                    disco de tal año
+                                    20 canciones
+                                </p>
+                            </div>
+                            <span class="material-icons md-light md-24">
+                                more_vert
+                            </span>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
             <section v-show="pagina == 'reconocimiento'" class="sectionRecognize">
 
-                <div class="d-flex flex-wrap justify-content-center">                    
-                    
+                <div class="d-flex flex-wrap justify-content-center">
+
                     <div v-if="recording=='off'" class="m-4 d-flex flex-wrap justify-content-center">
-                        <img onclick="grabarAudio()" src="/img/icons/microphone_icon.svg" alt="microphone_icon" class="recognizeButton">
+                        <img onclick="grabarAudio()" src="/img/icons/microphone_icon.svg" alt="microphone_icon"
+                            class="recognizeButton">
                         <p class="w-100 m-4 text-center textoRecognize">Press to recognize some music</p>
                     </div>
-                    
+
 
                     <div v-if="recording=='active'" class="m-4 d-flex flex-wrap justify-content-center">
                         <img src="/img/circle-loader.gif" alt="recording..." class="recordingGif">
                         <p class="w-100 mt-5 text-center textoRecognize">We are listening to you...</p>
                         <p class="w-100 text-center textoRecognize">Keep singing :)</p>
                     </div>
-                    
+
                     <div v-if="recording=='searching'" class="m-4 d-flex flex-wrap justify-content-center">
                         <img src="/img/loading.gif" alt="searching..." class="loadingGif">
                         <p class="w-100 text-center textoRecognize">Now we are searching in our library...</p>
                     </div>
-                    
+
                     <div v-if="recording=='finished'" class="m-4 d-flex flex-wrap justify-content-center">
-                        <p class="w-100 text-center textoRecognize">We think this is what are you looking for...</p>                    
+                        <p class="w-100 text-center textoRecognize">We think this is what are you looking for...</p>
                     </div>
-                    
-                    <iframe class="m-4" style="border-radius:12px" v-bind:src="spotifyLink" width="100%" height="380" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
-    
+
+                    <iframe class="m-4" style="border-radius:12px" v-bind:src="spotifyLink" width="100%" height="380"
+                        frameBorder="0" allowfullscreen=""
+                        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+
                 </div>
 
             </section>
@@ -130,28 +227,28 @@
             <div class="container">
                 <div class="d-flex align-items-center justify-content-between">
                     <div class="p-2">
-                      
+
                         <!-- <a href="">
                             <img src="./img/icons/tapbar/Active=No.png" alt="">
                         </a> -->
-                        <span  class="material-icons md-light md-24 md-inactive">
+                        <span class="material-icons md-light md-24 md-inactive">
                             library_music
-                             </span>
+                        </span>
                     </div>
                     <div class="p-2">
-                        
-                            <!-- <img v-on:click="pagina = 'reconocimiento'" src="./img/icons/tapbar/Active=No-1.png" alt=""> -->
-                            <span v-on:click="pagina = 'reconocimiento'" class="material-icons md-light md-24 md-inactive">
-                                settings_voice
-                                 </span>
+
+                        <!-- <img v-on:click="pagina = 'reconocimiento'" src="./img/icons/tapbar/Active=No-1.png" alt=""> -->
+                        <span v-on:click="pagina = 'reconocimiento'" class="material-icons md-light md-24 md-inactive">
+                            settings_voice
+                        </span>
                     </div>
                     <div class="p-2">
                         <!-- <a href="">
                             <img src="./img/icons/tapbar/Active=No, Like=Yes.png" alt="">
                         </a> -->
-                        <span  class="material-icons md-light md-24 md-inactive">
+                        <span class="material-icons md-light md-24 md-inactive">
                             favorite
-                             </span>
+                        </span>
                     </div>
                     <button class="homeIndicator mt-2"></button>
                 </div>
