@@ -46,7 +46,7 @@
             </div>
         </nav>
 
-        <div class="card" style="width: 18rem;" v-for="item in tracks">
+        <div class="card" style="width: 18rem;" v-for="item in tracks" v-bind:data-uri="item.data.uri" v-on:click="play({playerInstance: player,spotify_uri: item.data.uri,})">
             <img v-bind:src="item.data.albumOfTrack.coverArt.sources[0].url" class="card-img-top" alt="...">
             <div class="card-body">
               <h5 class="card-title">{{item.data.name}}</h5>

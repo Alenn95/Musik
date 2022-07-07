@@ -2,7 +2,9 @@ Vue.createApp({
     data() {
         return {
             pagina: "home",
-			tracks:"",
+            tracks:"",
+            player:"",
+            device_id:""
 
         }
     },
@@ -32,6 +34,7 @@ Vue.createApp({
 			fetch(`https://spotify23.p.rapidapi.com/search/?q=${song}&type=multi&offset=0&limit=10&numberOfTopResults=5`, options)
 			.then(response => response.json())
 			.then(response => {
+                console.log(response)
 				
 				this.tracks = response.tracks.items
 
@@ -41,18 +44,20 @@ Vue.createApp({
 		})
 
 		window.onSpotifyWebPlaybackSDKReady = () => {
-            const token = 'BQBmJ6KlUjdrIyKuRkGnh6cSQ-aaGHS1V0O3ijuoCqBbi6ihh-64UA2FvMp-0gKtgTLaRJ4H7yls4vICZUv6eei3uPKhLsFEo83ayz7QbtPmzJVFUEGHjcsZ0zzPIGP0XO8_bcAIw65ve2h6MBCvh_s8xDqA94wRfZkzGX6mlJIDdGIuCF6xm2TXDRHs5LASTgc6bagKOu6Ac5DqL-YpCRA3_kg';
+            const token = 'BQBg0fs10nH-QPe8-pw9N94AomUGp-tcZWfcEmpFTWHoaton7xFxmsZOoBKv0iDUlDpWzxTdoGWfbrRxdZ1y0pJ9YzQZW6YFZ3g9hKMtRdaDkhpY3R9ZZHfrQFI8oiGtBClMVp2LKMoLa8PSoW-YP2EdFiTtff9Gl6ow1cFyKJF-R-tb4gW8U0_96daPWpJ87q7rg72rQ4H7Svo7EDdEVHbRukw';
             const player = new Spotify.Player({
                 name: 'Web Playback SDK Quick Start Player',
                 getOAuthToken: cb => { cb(token); },
                 volume: 0.5
             });
 
-            console.log(player)
+            this.player = player
 
             // Ready
             player.addListener('ready', ({ device_id }) => {
                 console.log('Ready with Device ID', device_id);
+                this.device_id = device_id
+
             });
 
             // Not Ready
@@ -76,6 +81,8 @@ Vue.createApp({
               player.togglePlay();
             };
 
+            
+
             player.connect();
         }
 
@@ -85,6 +92,26 @@ Vue.createApp({
     },
 
     methods: {
+      play: function({
+        spotify_uri,
+        playerInstance: {
+          _options: {
+            getOAuthToken,
+          }
+        }
+        }){
+        getOAuthToken(access_token => {
+          fetch(`https://api.spotify.com/v1/me/player/play?device_id=${this.device_id}`, {
+            method: 'PUT',
+            body: JSON.stringify({ uris: [spotify_uri] }),
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${access_token}`
+            },
+          });
+        });
+      },
+      
 
     },
 
@@ -92,3 +119,29 @@ Vue.createApp({
 
     }
 }).mount('#app')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+
+	
