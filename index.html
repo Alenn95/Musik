@@ -6,9 +6,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="./style/style.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <link rel="stylesheet" href="./style/style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -125,6 +125,23 @@
 
             </section>
 
+            <section v-show="pagina == 'home'" class="sectionSearch">
+
+                <div class="w-100 m-4 ">
+                    <div class="input-group searchBar">
+                        <div class="input-group-prepend">
+                            <button class="btn d-flex rounded-0" type="button">
+                                <span id="search" class="material-icons md-light md-24 ">
+                                    search
+                                </span>
+                            </button>
+                        </div>
+                        <input type="text" class="form-control border-0 searchBar backSearchBar" placeholder="Search for songs" aria-label="" aria-describedby="basic-addon1">
+                    </div>
+                </div>
+                
+
+            </section>
 
         </main>
         <footer class="bg-dark fixed-bottom">
@@ -135,7 +152,7 @@
                         <!-- <a href="">
                             <img src="./img/icons/tapbar/Active=No.png" alt="">
                         </a> -->
-                        <span  class="material-icons md-light md-24 md-inactive">
+                        <span v-on:click="pagina = 'busqueda'"  class="material-icons md-light md-24 md-inactive">
                             library_music
                              </span>
                     </div>
