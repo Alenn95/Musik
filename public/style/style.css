@@ -37,7 +37,11 @@ header {
 }
 
 footer {
-    height: 10vh;
+    height: 8vh;
+}
+
+main{
+    margin-bottom: 8vh;
 }
 
 .homeIndicator {
@@ -205,8 +209,7 @@ overflow: auto;
 
 
 .sectionSearch{
-    background-color: black;    
-    height: 84vh;       
+    background-color: black;               
 }
 
 .backSearchBar{
