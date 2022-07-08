@@ -6,7 +6,7 @@ html {
 .tituloApp {
     font-family: 'Abel', sans-serif;
     color: white;
-    font-size: 2rem;
+    font-size: 1.4rem;
 }
 
 .letra {
@@ -28,6 +28,12 @@ html {
 
 header {
     height: 9vh;
+}
+
+.profileImage{
+    object-fit: cover;
+    height: 4vh;
+    width:9vw;
 }
 
 footer {
