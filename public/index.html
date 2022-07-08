@@ -242,7 +242,7 @@
                 </div>                              
                 
                 <div class="d-flex flex-wrap w-100 text-light p-4">
-                    <p class="w-100">Resultados</p>
+                    <p v-if="tracks.length > 0" class="w-100">Resultados</p>
 
                     <!-- <div class="card" style="width: 18rem;" v-for="item in tracks" v-bind:data-uri="item.data.uri" v-on:click="play({playerInstance: player,spotify_uri: item.data.uri,})">
                         <img v-bind:src="item.data.albumOfTrack.coverArt.sources[0].url" class="card-img-top" alt="...">
