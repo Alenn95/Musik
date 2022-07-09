@@ -13,6 +13,7 @@ const app = Vue.createApp({
             userEmail:"",
             userPhoto:"",
             userName:"",
+            favorites:[],
         }
     },
 
@@ -102,11 +103,11 @@ const app = Vue.createApp({
                 var isAnonymous = user.isAnonymous;
                 var uid = user.uid;
                 var providerData = user.providerData;
-                document.getElementById('quickstart-sign-in-google').textContent = 'Sign out';
+                document.getElementById('quickstart-sign-in-google');
                 document.getElementById('quickstart-sign-in').textContent = 'Sign out';
               } else {
-                document.getElementById('quickstart-sign-in-google').textContent = 'Sign in with Google';
-                document.getElementById('quickstart-sign-in').textContent = 'Sign in';
+                document.getElementById('quickstart-sign-in-google');
+                document.getElementById('quickstart-sign-in');
               }
               document.getElementById('quickstart-sign-in-google').disabled = false;
               document.getElementById('quickstart-sign-in').disabled = false;
@@ -226,10 +227,6 @@ const app = Vue.createApp({
             });
         },
 
-    },
-
-    computed: {
-
         icons: function () {
             let perfil = document.getElementById("person");
             let setup = document.getElementById("settings");
@@ -245,14 +242,20 @@ const app = Vue.createApp({
             }
         },
 
+    },
+
+    computed: {
+
+      
+
         getData: function () {
             firebase.auth().onAuthStateChanged((user) => {
                 if (user) {
                     this.user = user;
-                    this.currentUserID = JSON.parse(JSON.stringify(this.usuario)).uid;
-                    this.userEmail = JSON.parse(JSON.stringify(this.usuario)).email;
-                    this.userPhoto = JSON.parse(JSON.stringify(this.usuario)).photoURL;
-                    this.userName = JSON.parse(JSON.stringify(this.usuario)).displayName;
+                    this.currentUserID = JSON.parse(JSON.stringify(this.user)).uid;
+                    this.userEmail = JSON.parse(JSON.stringify(this.user)).email;
+                    this.userPhoto = JSON.parse(JSON.stringify(this.user)).photoURL;
+                    this.userName = JSON.parse(JSON.stringify(this.user)).displayName;
                     console.log(this.user)
                 }
                 else {

@@ -19,7 +19,7 @@
 
 <body>
     <div id="app">
-        <header class="bg-dark">
+        <header class="bg-dark sticky-top">
             <div class="container-fluid">
                 <div class="d-flex flex-row align-items-center justify-content-between">
                     <!-- {{iconos}} -->
@@ -60,11 +60,11 @@
         <main>
             <section v-show="pagina == 'Profile'" class="perfil">
                 <div v-show="!currentUserID" class="d-flex flex-column align-items-center justify-content-center">
-                    <img class="w-25 perfilImg mt-5" src="./img/silhouette.jpg" alt="User">
+                    <img class="w-25 perfilImg mt-5" :src="user.photoURL || '/img/silhouette.jpg'" alt="User">
                     <div class="p-2 mt-2">
-                        <h2 class="letra">Nombre de usuario</h2>
+                        <h2 class="letra">{{userName}}</h2>
                     </div>
-                    <div class="p-2 login mt-3 justify-content-center align-items-center">
+                    <div v-show="!currentUserID" class="p-2 login mt-3 justify-content-center align-items-center">
                         <div class="d-flex flex-row align-items-center justify-content-evenly">
                             <button  id="quickstart-sign-in-google" v-on:click="toggleSignIn" class=" btn redes p-1">
                                 <img src="./img/google.png" alt="">
@@ -93,7 +93,7 @@
                         {{getData}}
                     </div>
                 </div>
-                <section v-show="currentUserID" class="perfilog">
+                <div v-show="currentUserID" class="perfilog">
                     <div class="d-flex flex-column justify-content-start bg-dark">
                         <div class="d-flex flex-row align-items-center justify-content-start">
                             <button class="btn btn-dark">
@@ -155,6 +155,7 @@
                         </div>
     
                         <h3 class="letra">Tus ultimas escuchas</h3>
+                        <button class="loginButton" id="quickstart-sign-in-google" v-on:click="toggleSignIn" > Log-out</button>
     
                         <div class="d-flex flex-column align-items-center">
                             <div class="d-flex flex-row align-items-center justify-content-between w-98">
@@ -184,11 +185,12 @@
                                     more_vert
                                 </span>
                             </div>
+                        </div>
+                        <div class="d-flex flex-row align-items-center justify-content-center w-98">
                             <button class="loginButton" id="quickstart-sign-in-google" v-on:click="toggleSignIn" > Log-out</button>
-    
                         </div>
                     </div>
-                </section>
+                </div>
             </section>
             
             <section v-show="pagina == 'Recognition'" class="sectionRecognize">
