@@ -37,7 +37,11 @@ header {
 }
 
 footer {
-    height: 10vh;
+    height: 8vh;
+}
+
+main{
+    margin-bottom: 8vh;
 }
 
 .homeIndicator {
@@ -203,3 +207,18 @@ overflow: auto;
     animation-timing-function: ease; 
 }
 
+
+.sectionSearch{
+    background-color: black;
+    min-height: 83vh;               
+}
+
+.backSearchBar{
+    background-color: rgb(51, 51, 51);
+}
+
+.searchBar{
+    background-color: rgb(51, 51, 51);
+    border: 0;
+    border-radius: 20px 20px 20px 20px;       
+}

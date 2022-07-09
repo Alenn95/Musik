@@ -27,7 +27,7 @@
                         <!-- <a href="">
                             <img src="./img/icons/Search.png" alt="">
                         </a> -->
-                        <span id="search" class="material-icons md-light md-24 md-inactive">
+                        <span class="material-icons md-light md-24 md-inactive">
                             search
                         </span>
                     </div>
@@ -58,6 +58,7 @@
             </div>
         </header>
         <main>
+           
             <section v-show="pagina == 'Profile'" class="perfil">
                 <div v-show="!currentUserID" class="d-flex flex-column align-items-center justify-content-center">
                     <img class="w-25 perfilImg mt-5" :src="user.photoURL || '/img/silhouette.jpg'" alt="User">
@@ -227,6 +228,53 @@
 
             </section>
 
+            <section v-show="pagina == 'busqueda'" class="sectionSearch">
+
+                <div class="w-100 p-4">
+                    <div class="input-group searchBar">
+                        <div class="input-group-prepend">
+                            <button class="btn d-flex rounded-0" type="button">
+                                <span id="s-button" class="material-icons md-light md-24 ">
+                                    search
+                                </span>
+                            </button>
+                        </div>
+                        <input @input="searchSongs()" type="text" id="search"  class="form-control border-0 searchBar backSearchBar" placeholder="Search for songs" aria-label="" aria-describedby="basic-addon1">
+                    </div>
+                </div>                              
+                
+                <div class="d-flex flex-wrap w-100 text-light p-4">
+                    <p v-if="tracks.length > 0" class="w-100">Resultados</p>
+
+                    <!-- <div class="card" style="width: 18rem;" v-for="item in tracks" v-bind:data-uri="item.data.uri" v-on:click="play({playerInstance: player,spotify_uri: item.data.uri,})">
+                        <img v-bind:src="item.data.albumOfTrack.coverArt.sources[0].url" class="card-img-top" alt="...">
+                        <div class="card-body">
+                          <h5 class="card-title">{{item.data.name}}</h5>
+                          <p class="card-text" v-for="a in item.data.artists.items">{{a.profile.name}}</p>
+                          <a href="#" class="btn btn-primary">Go somewhere</a>
+                        </div>
+                    </div> -->
+
+
+                    <div v-for="item in tracks" class="d-flex flex-row w-100 align-items-center justify-content-between p-2">
+                        <img class="w-25" v-bind:src="item.data.albumOfTrack.coverArt.sources[0].url" alt="">
+                        <div class="d-flex flex-column  justify-content-start">
+                            <p class="letra">{{item.data.name}}</p>
+                            <p class="letraChicaDisabled">
+                                <!-- <p v-for="a in item.data.artists.items">{{a.profile.name}}</p> -->
+                            </p>
+                        </div>                       
+                        <span class="material-icons md-light md-24">
+                            more_vert
+                        </span>
+                    </div>
+                    
+                </div>
+
+
+
+            </section>
+
 
         </main>
         <footer class="bg-dark fixed-bottom">
@@ -237,7 +285,7 @@
                         <!-- <a href="">
                             <img src="./img/icons/tapbar/Active=No.png" alt="">
                         </a> -->
-                        <span class="material-icons md-light md-24 md-inactive">
+                        <span v-on:click="pagina = 'busqueda'" class="material-icons md-light md-24 md-inactive">
                             library_music
                         </span>
                     </div>
@@ -267,6 +315,7 @@
     <script src="/__/firebase/init.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"crossorigin="anonymous"></script>
     <script src="https://unpkg.com/vue@3"></script>
+    <script src="https://sdk.scdn.co/spotify-player.js"></script>
     <script src="./scripts/main.js"></script>
 </body>
 
