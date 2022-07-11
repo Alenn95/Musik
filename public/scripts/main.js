@@ -8,12 +8,12 @@ const app = Vue.createApp({
             tracks: "",
             player: "",
             device_id: "",
-            user:"",
-            currentUserID:"",
-            userEmail:"",
-            userPhoto:"",
-            userName:"",
-            favorites:[],
+            user: "",
+            currentUserID: "",
+            userEmail: "",
+            userPhoto: "",
+            userName: "",
+            favorites: [],
         }
     },
 
@@ -25,30 +25,31 @@ const app = Vue.createApp({
         let searchB = document.getElementById('s-button')
         let search = document.getElementById('search')
 
-        searchB.addEventListener('click',()=>{
+        searchB.addEventListener('click', () => {
 
-        	let song = search.value.replace(/\s/g, '%20')
-        	console.log(song)
+            let song = search.value.replace(/\s/g, '%20')
+            console.log(song)
 
-        	const options = {
-        		method: 'GET',
-        		headers: {
-        			'X-RapidAPI-Key': '7df59f583fmshebd943cc0215877p117054jsncaa72e84bd61',
-        			'X-RapidAPI-Host': 'spotify23.p.rapidapi.com'
-        		}
-        	};
+            const options = {
+                method: 'GET',
+                headers: {
+                    'X-RapidAPI-Key': '7df59f583fmshebd943cc0215877p117054jsncaa72e84bd61',
+                    'X-RapidAPI-Host': 'spotify23.p.rapidapi.com'
+                }
+            };
 
-        	fetch(`https://spotify23.p.rapidapi.com/search/?q=${song}&type=multi&offset=0&limit=10&numberOfTopResults=5`, options)
-        	.then(response => response.json())
-        	.then(response => {
-                console.log(response)
+            fetch(`https://spotify23.p.rapidapi.com/search/?q=${song}&type=multi&offset=0&limit=10&numberOfTopResults=5`, options)
+                .then(response => response.json())
+                .then(response => {
+                    console.log(response)
 
-        		this.tracks = response.tracks.items
+                    this.tracks = response.tracks.items
 
-        	})
-        	.catch(err => console.error(err));
+                })
+                .catch(err => console.error(err));
 
         })
+
 
         // window.onSpotifyWebPlaybackSDKReady = () => {
         //     const token = 'BQBg0fs10nH-QPe8-pw9N94AomUGp-tcZWfcEmpFTWHoaton7xFxmsZOoBKv0iDUlDpWzxTdoGWfbrRxdZ1y0pJ9YzQZW6YFZ3g9hKMtRdaDkhpY3R9ZZHfrQFI8oiGtBClMVp2LKMoLa8PSoW-YP2EdFiTtff9Gl6ow1cFyKJF-R-tb4gW8U0_96daPWpJ87q7rg72rQ4H7Svo7EDdEVHbRukw';
@@ -95,91 +96,86 @@ const app = Vue.createApp({
 
         window.onload = function () {
             firebase.auth().onAuthStateChanged((user) => {
-              if (user) {
-                var displayName = user.displayName;
-                var email = user.email;
-                var emailVerified = user.emailVerified;
-                var photoURL = user.photoURL;
-                var isAnonymous = user.isAnonymous;
-                var uid = user.uid;
-                var providerData = user.providerData;
-                document.getElementById('quickstart-sign-in-google');
-                document.getElementById('quickstart-sign-in').textContent = 'Sign out';
-              } else {
-                document.getElementById('quickstart-sign-in-google');
-                document.getElementById('quickstart-sign-in');
-              }
-              document.getElementById('quickstart-sign-in-google').disabled = false;
-              document.getElementById('quickstart-sign-in').disabled = false;
+                if (user) {
+                    var displayName = user.displayName;
+                    var email = user.email;
+                    var emailVerified = user.emailVerified;
+                    var photoURL = user.photoURL;
+                    var isAnonymous = user.isAnonymous;
+                    var uid = user.uid;
+                    var providerData = user.providerData;
+                    document.getElementById('quickstart-sign-in-google');
+                    document.getElementById('quickstart-sign-in').textContent = 'Sign out';
+                    firebase.database().ref('Favoritos/' + this.currentUserID + '/').on("child_added", (data) => {
+                        let favorito = data.val()
+                        this.favorites.push(favorito)
+                        console.log(this.favorites)
+                    });
+
+                } else {
+                    document.getElementById('quickstart-sign-in-google');
+                    document.getElementById('quickstart-sign-in');
+                }
+                document.getElementById('quickstart-sign-in-google').disabled = false;
+                document.getElementById('quickstart-sign-in').disabled = false;
             });
 
-            this.player = player
+            // this.player = player
 
-            // Ready
-            player.addListener('ready', ({ device_id }) => {
-                console.log('Ready with Device ID', device_id);
-                this.device_id = device_id
+            // // Ready
+            // player.addListener('ready', ({ device_id }) => {
+            //     console.log('Ready with Device ID', device_id);
+            //     this.device_id = device_id
 
-            });
+            // });
 
-            // Not Ready
-            player.addListener('not_ready', ({ device_id }) => {
-                console.log('Device ID has gone offline', device_id);
-            });
+            // // Not Ready
+            // player.addListener('not_ready', ({ device_id }) => {
+            //     console.log('Device ID has gone offline', device_id);
+            // });
 
-            player.addListener('initialization_error', ({ message }) => {
-                console.error(message);
-            });
+            // player.addListener('initialization_error', ({ message }) => {
+            //     console.error(message);
+            // });
 
-            player.addListener('authentication_error', ({ message }) => {
-                console.error(message);
-            });
+            // player.addListener('authentication_error', ({ message }) => {
+            //     console.error(message);
+            // });
 
-            player.addListener('account_error', ({ message }) => {
-                console.error(message);
-            });
+            // player.addListener('account_error', ({ message }) => {
+            //     console.error(message);
+            // });
 
-            document.getElementById('togglePlay').onclick = function() {
-              player.togglePlay();
-            };
+            // document.getElementById('togglePlay').onclick = function () {
+            //     player.togglePlay();
+            // };
 
 
 
-            player.connect();
+            // player.connect();
+
+
+           
+
         };
 
-        // window.onload = function () {
-        //     firebase.auth().onAuthStateChanged((user) => {
-        //       if (user) {
-        //         var displayName = user.displayName;
-        //         var email = user.email;
-        //         var emailVerified = user.emailVerified;
-        //         var photoURL = user.photoURL;
-        //         var isAnonymous = user.isAnonymous;
-        //         var uid = user.uid;
-        //         var providerData = user.providerData;
-        //         document.getElementById('quickstart-sign-in-google').textContent = 'Sign out';
-        //         document.getElementById('quickstart-sign-in').textContent = 'Sign out';
-        //       } else {
-        //         document.getElementById('quickstart-sign-in-google').textContent = 'Sign in with Google';
-        //         document.getElementById('quickstart-sign-in').textContent = 'Sign in';
-        //       }
-        //       document.getElementById('quickstart-sign-in-google').disabled = false;
-        //       document.getElementById('quickstart-sign-in').disabled = false;
-        //     });
-      
-        //   }
+
 
     },
 
     methods: {
 
-        searchSongs: function(){
+        // addFavorite: function (song) {
+        //     this.favorites.push(song)
+        //     console.log(this.favorites);
+        // },
+
+        searchSongs: function () {
             let search = document.getElementById('search')
             let song = search.value.replace(/\s/g, '%20')
-        	console.log(song)
-            
-            if(song){
+            console.log(song)
+
+            if (song) {
                 const options = {
                     method: 'GET',
                     headers: {
@@ -187,25 +183,25 @@ const app = Vue.createApp({
                         'X-RapidAPI-Host': 'spotify23.p.rapidapi.com'
                     }
                 };
-    
+
                 fetch(`https://spotify23.p.rapidapi.com/search/?q=${song}&type=multi&offset=0&limit=10&numberOfTopResults=5`, options)
-                .then(response => response.json())
-                .then(response => {
-                    console.log(response)
-    
-                    if(search.value){
-                        this.tracks = response.tracks.items
-                    }
-                    else{
-                        this.tracks = []
-                    }
-                })
-                .catch(err => console.error(err));
+                    .then(response => response.json())
+                    .then(response => {
+                        console.log(response)
+
+                        if (search.value) {
+                            this.tracks = response.tracks.items
+                        }
+                        else {
+                            this.tracks = []
+                        }
+                    })
+                    .catch(err => console.error(err));
             }
-            else{
+            else {
                 this.tracks = []
             }
-        	
+
         },
 
 
@@ -229,93 +225,93 @@ const app = Vue.createApp({
             });
         },
 
-        // toggleSignIn: function () {
-        //     if (!firebase.auth().currentUser) {
-        //         var provider = new firebase.auth.GoogleAuthProvider();
-        //         provider.addScope('https://www.googleapis.com/auth/contacts.readonly');
-        //         firebase.auth().signInWithPopup(provider).then(function (result) {
-        //             // This gives you a Google Access Token. You can use it to access the Google API.
-        //             var token = result.credential.accessToken;
-        //             // The signed-in user info.
-        //             var user = result.user;
-        //         }).catch(function (error) {
-        //             // Handle Errors here.
-        //             var errorCode = error.code;
-        //             var errorMessage = error.message;
-        //             // The email of the user's account used.
-        //             var email = error.email;
-        //             // The firebase.auth.AuthCredential type that was used.
-        //             var credential = error.credential;
-        //             if (errorCode === 'auth/account-exists-with-different-credential') {
-        //                 alert('You have already signed up with a different auth provider for that email.');
-        //                 // If you are using multiple auth providers on your app you should handle linking
-        //                 // the user's accounts here.
-        //             } else {
-        //                 console.error(error);
-        //             }
-        //         });
-        //     } else {
-        //         firebase.auth().signOut();
-        //     }
-        //     document.getElementById('quickstart-sign-in-google').disabled = true;
-        // },
+        toggleSignIn: function () {
+            if (!firebase.auth().currentUser) {
+                var provider = new firebase.auth.GoogleAuthProvider();
+                provider.addScope('https://www.googleapis.com/auth/contacts.readonly');
+                firebase.auth().signInWithPopup(provider).then(function (result) {
+                    // This gives you a Google Access Token. You can use it to access the Google API.
+                    var token = result.credential.accessToken;
+                    // The signed-in user info.
+                    var user = result.user;
+                }).catch(function (error) {
+                    // Handle Errors here.
+                    var errorCode = error.code;
+                    var errorMessage = error.message;
+                    // The email of the user's account used.
+                    var email = error.email;
+                    // The firebase.auth.AuthCredential type that was used.
+                    var credential = error.credential;
+                    if (errorCode === 'auth/account-exists-with-different-credential') {
+                        alert('You have already signed up with a different auth provider for that email.');
+                        // If you are using multiple auth providers on your app you should handle linking
+                        // the user's accounts here.
+                    } else {
+                        console.error(error);
+                    }
+                });
+            } else {
+                firebase.auth().signOut();
+            }
+            document.getElementById('quickstart-sign-in-google').disabled = true;
+        },
 
 
-        // toggleSignInMail: function () {
-        //     if (firebase.auth().currentUser) {
-        //         firebase.auth().signOut();
-        //     } else {
-        //         var email = document.getElementById('email').value;
-        //         var password = document.getElementById('password').value;
-        //         if (email.length < 4) {
-        //             alert('Please enter an email address.');
-        //             return;
-        //         }
-        //         if (password.length < 4) {
-        //             alert('Please enter a password.');
-        //             return;
-        //         }
-        //         // Sign in with email and pass.
-        //         firebase.auth().signInWithEmailAndPassword(email, password).catch(function (error) {
-        //             // Handle Errors here.
-        //             var errorCode = error.code;
-        //             var errorMessage = error.message;
-        //             if (errorCode === 'auth/wrong-password') {
-        //                 alert('Wrong password.');
-        //             } else {
-        //                 alert(errorMessage);
-        //             }
-        //             console.log(error);
-        //             document.getElementById('quickstart-sign-in').disabled = false;
-        //         });
-        //     }
-        //     document.getElementById('quickstart-sign-in').disabled = true;
-        // },
+        toggleSignInMail: function () {
+            if (firebase.auth().currentUser) {
+                firebase.auth().signOut();
+            } else {
+                var email = document.getElementById('email').value;
+                var password = document.getElementById('password').value;
+                if (email.length < 4) {
+                    alert('Please enter an email address.');
+                    return;
+                }
+                if (password.length < 4) {
+                    alert('Please enter a password.');
+                    return;
+                }
+                // Sign in with email and pass.
+                firebase.auth().signInWithEmailAndPassword(email, password).catch(function (error) {
+                    // Handle Errors here.
+                    var errorCode = error.code;
+                    var errorMessage = error.message;
+                    if (errorCode === 'auth/wrong-password') {
+                        alert('Wrong password.');
+                    } else {
+                        alert(errorMessage);
+                    }
+                    console.log(error);
+                    document.getElementById('quickstart-sign-in').disabled = false;
+                });
+            }
+            document.getElementById('quickstart-sign-in').disabled = true;
+        },
 
-        // //BOTON DE RESGISTRO CON MAIL 
+        //BOTON DE RESGISTRO CON MAIL 
 
-        // handleSignUp: function () {
-        //     var email = document.getElementById('email').value;
-        //     var password = document.getElementById('password').value;
-        //     if (email.length < 4) {
-        //         alert('Please enter an email address.');
-        //         return;
-        //     }
-        //     if (password.length < 4) {
-        //         alert('Please enter a password.');
-        //         return;
-        //     }
-        //     firebase.auth().createUserWithEmailAndPassword(email, password).catch(function (error) {
-        //         var errorCode = error.code;
-        //         var errorMessage = error.message;
-        //         if (errorCode == 'auth/weak-password') {
-        //             alert('The password is too weak.');
-        //         } else {
-        //             alert(errorMessage);
-        //         }
-        //         console.log(error);
-        //     });
-        // },
+        handleSignUp: function () {
+            var email = document.getElementById('email').value;
+            var password = document.getElementById('password').value;
+            if (email.length < 4) {
+                alert('Please enter an email address.');
+                return;
+            }
+            if (password.length < 4) {
+                alert('Please enter a password.');
+                return;
+            }
+            firebase.auth().createUserWithEmailAndPassword(email, password).catch(function (error) {
+                var errorCode = error.code;
+                var errorMessage = error.message;
+                if (errorCode == 'auth/weak-password') {
+                    alert('The password is too weak.');
+                } else {
+                    alert(errorMessage);
+                }
+                console.log(error);
+            });
+        },
 
         icons: function () {
             let perfil = document.getElementById("person");
@@ -332,11 +328,19 @@ const app = Vue.createApp({
             }
         },
 
+        addFavorites: function (song) {
+            let cancion = song
+            let newCommentKey = firebase.database().ref().child('Favoritos/' + this.currentUserID + '/').push().key;
+            var update = {};
+            update['Favoritos/' + this.currentUserID + '/' + newCommentKey] = cancion;
+            firebase.database().ref().update(update);
+        },
+
     },
 
     computed: {
 
-      
+
 
         getData: function () {
             firebase.auth().onAuthStateChanged((user) => {
@@ -349,7 +353,7 @@ const app = Vue.createApp({
                     console.log(this.user)
                 }
                 else {
-                    this.usuariouser = null;
+                    this.user = {photoURL: "https://cdn.icon-icons.com/icons2/1378/PNG/512/avatardefault_92824.png" };
                     this.currentUserID = "";
                     this.userEmail = "";
                     this.userPhoto = "";
@@ -357,6 +361,8 @@ const app = Vue.createApp({
                 }
             })
         },
+
+
 
     }
 }).mount('#app')
