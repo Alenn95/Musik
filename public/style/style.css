@@ -1,0 +1,224 @@
+html {
+    font-family: 'Abel', sans-serif;
+    color: white;
+}
+
+.tituloApp {
+    font-family: 'Abel', sans-serif;
+    color: white;
+    font-size: 1.4rem;
+}
+
+.letra {
+    font-family: 'Abel', sans-serif;
+    color: rgb(255, 255, 255);
+    font-size: 1.2rem;
+}
+.letraChicaDisabled {
+    font-family: 'Abel', sans-serif;
+    color: rgb(255, 255, 255, 0.3);
+    font-size: .9rem;
+}
+
+.material-simbols-outlined{
+    color:#FFFFFF;
+    fill: #FFFFFF;
+}
+
+
+header {
+    height: 9vh;
+}
+
+.profileImage{
+    object-fit: cover;
+    height: 4vh;
+    width:9vw;
+}
+
+footer {
+    height: 8vh;
+}
+
+main{
+    margin-bottom: 8vh;
+}
+
+.homeIndicator {
+    position: absolute;
+    width: 134px;
+    height: 5px;
+    left: calc(50% - 134px/2 + 0.5px);
+    bottom: 8px;
+    background: #FFFFFF;
+    border-radius: 100px;
+}
+
+/* Rules for sizing the icon. */
+.material-icons.md-18 { font-size: 18px; }
+.material-icons.md-24 { font-size: 24px; }
+.material-icons.md-36 { font-size: 36px; }
+.material-icons.md-48 { font-size: 48px; }
+
+/* Rules for using icons as black on a light background. */
+.material-icons.md-dark { color: rgba(0, 0, 0, 0.54); }
+.material-icons.md-dark.md-inactive { color: rgba(0, 0, 0, 0.26); }
+
+/* Rules for using icons as white on a dark background. */
+.material-icons.md-light { color: rgba(255, 255, 255, 1); }
+.material-icons.md-light.md-inactive { color: rgba(255, 255, 255, 0.3); }
+
+
+
+.perfil {
+    height: 84vh;
+    background-image: url("/img/fondo.jpg");
+    background-attachment: scroll;
+    background-size: cover;
+}
+
+.perfillog{
+    height: 84vh;
+}
+
+.perfilImg {
+    border-radius: 50%;
+}
+
+.busqueda{
+    height: 84vh;
+
+}
+.login {
+    width: 70vw;
+    border-color: beige;
+    height: 40vh;
+    background-color: rgba(27, 27, 27, 0.3);;
+}
+
+.redes {
+    width: 15vw;
+    height: 7vh;
+    background-color: transparent;
+    border-color: rgb(102, 22, 107) solid;
+    padding: .5rem;
+    cursor: pointer;
+    image-rendering: inherit;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.redes img {
+    width: 25px;
+    height: 25px;
+
+}
+
+.formLogin {
+    
+    background-color: transparent;
+    outline: 0;
+  border-width: 0 0 1px;
+  border-color: rgb(255, 255, 255);
+  color:white;
+
+}
+
+.loginButton{
+margin:.5rem;
+background-color: rgba(27, 27, 27, 0.8);;
+text-decoration: none;
+color: white;
+border: none;
+width:25vw;
+height: 6vh;
+resize: both;
+overflow: auto;
+}
+
+.loginButton:hover{
+    filter:brightness(110%)
+}
+
+
+.sectionRecognize{ 
+    background-image: url(/img/background.jpg);
+    background-attachment: scroll;
+    background-size: cover;         
+    display: flex;
+    justify-content: center;
+}
+
+@keyframes boxShadowRecordingRed {
+    0%      {box-shadow: 0px 0px 15px 7px red;}
+    50%     {box-shadow: 0px 0px 25px 25px red;}
+    100%    {box-shadow: 0px 0px 15px 7px red;} 
+}
+
+@keyframes boxShadowRecordingBlack {
+    0%      {box-shadow: 0px 0px 15px 7px black;}
+    50%     {box-shadow: 0px 0px 25px 25px black;}
+    100%    {box-shadow: 0px 0px 15px 7px black;} 
+}
+
+
+.recognizeButton{
+    margin: 5vh;
+    height: 20vh;
+    border-radius: 50%;    
+    /* border: 5px solid red; */
+    box-shadow: 0px 0px 15px 7px red;
+    background-color: rgb(53, 49, 49);
+    transition: all 1s;
+}
+
+.recognizeButton:hover{
+    cursor: pointer;
+    height: 20vh;    
+    transform: rotate(360deg);    
+    box-shadow: 0px 0px 25px 25px red;
+}
+
+.textoRecognize{
+    color: black;
+    font-weight: bold;
+    font-size: 1.1em;
+}
+
+.recordingGif{
+    margin: 5vh;
+    height: 20vh;
+    /* border: 5px solid red; */
+    border-radius: 50%;
+    animation-name: boxShadowRecordingRed;
+    animation-duration: 1.8s;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease;
+}
+
+.loadingGif{
+    margin: 5vh;
+    height: 20vh;
+    border-radius: 50%; 
+    animation-name: boxShadowRecordingBlack;
+    animation-duration: 1.8s;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease; 
+}
+
+
+.sectionSearch{
+    background-color: black;
+    min-height: 83vh;               
+}
+
+.backSearchBar{
+    background-color: rgb(51, 51, 51);
+}
+
+.searchBar{
+    background-color: rgb(51, 51, 51);
+    border: 0;
+    border-radius: 20px 20px 20px 20px;       
+}
