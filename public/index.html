@@ -19,7 +19,7 @@
 
 <body>
     <div id="app">
-        <header class="bg-dark">
+        <header class="bg-dark sticky-top">
             <div class="container-fluid">
                 <div class="d-flex flex-row align-items-center justify-content-between">
                     <!-- {{iconos}} -->
@@ -27,7 +27,7 @@
                         <!-- <a href="">
                             <img src="./img/icons/Search.png" alt="">
                         </a> -->
-                        <span class="material-icons md-light md-24 md-inactive">
+                        <span v-on:click="pagina ='Busqueda'" class="material-icons md-light md-24 md-inactive">
                             search
                         </span>
                     </div>
@@ -52,22 +52,32 @@
                         <!-- <span v-on:click="pagina = 'Profile'" id="person" class="material-icons md-light md-24 md-inactive">
                             person
                         </span> -->
-                        <img @click="pagina = 'Profile'" class="rounded-circle profileImage" :src="user.photoURL || 'https://cdn.icon-icons.com/icons2/1378/PNG/512/avatardefault_92824.png'" alt="">
+                        <img @click="pagina = 'Profile'" class="rounded-circle profileImage"
+                            :src="user.photoURL || 'https://cdn.icon-icons.com/icons2/1378/PNG/512/avatardefault_92824.png'"
+                            alt="">
                     </div>
                 </div>
             </div>
         </header>
         <main>
-           
+
+            <section v-show="pagina == 'MusiK'">
+                <div class="d-flex flex-column align-items-center justufy-content-center bg-dark">
+                    <h1>¡Bienvenido!</h1>
+                    <p>{{userName}}</p>
+
+                </div>
+            </section>
+
             <section v-show="pagina == 'Profile'" class="perfil">
                 <div v-show="!currentUserID" class="d-flex flex-column align-items-center justify-content-center">
-                    <img class="w-25 perfilImg mt-5" src="./img/silhouette.jpg" alt="User">
+                    <img class="w-25 perfilImg mt-5" :src="user.photoURL || '/img/silhouette.jpg'" alt="User">
                     <div class="p-2 mt-2">
-                        <h2 class="letra">Nombre de usuario</h2>
+                        <h2 class="letra">{{userName}}</h2>
                     </div>
-                    <div class="p-2 login mt-3 justify-content-center align-items-center">
+                    <div v-show="!currentUserID" class="p-2 login mt-3 justify-content-center align-items-center">
                         <div class="d-flex flex-row align-items-center justify-content-evenly">
-                            <button  id="quickstart-sign-in-google" v-on:click="toggleSignIn" class=" btn redes p-1">
+                            <button id="quickstart-sign-in-google" v-on:click="toggleSignIn" class=" btn redes p-1">
                                 <img src="./img/google.png" alt="">
                             </button>
                             <p class="letra">or</p>
@@ -79,12 +89,13 @@
                             <form class="p-2">
                                 <input type="email" id="email" name="email" class="formLogin mb-3" placeholder="E-mail">
 
-                                <input type="password" id="password" name="password" class="formLogin" placeholder="Password">
+                                <input type="password" id="password" name="password" class="formLogin"
+                                    placeholder="Password">
                             </form>
                         </div>
                         <div class="d-flex flex-row align-items-center justify-content-evenly mt-3">
 
-                            <button  id="quickstart-sign-up" v-on:click="handleSignUp" class="loginButton">
+                            <button id="quickstart-sign-up" v-on:click="handleSignUp" class="loginButton">
                                 Register
                             </button>
                             <button id="quickstart-sign-in" v-on:click="toggleSignInMail" class="loginButton">
@@ -94,26 +105,15 @@
                         {{getData}}
                     </div>
                 </div>
-                <section v-show="currentUserID" class="perfilog">
+                <div v-show="currentUserID" class="perfilog">
                     <div class="d-flex flex-column justify-content-start bg-dark">
-                        <div class="d-flex flex-row align-items-center justify-content-start">
-                            <button class="btn btn-dark">
-                                <span class="material-icons md-light md-36">
-                                    favorite
-                                </span>
-                            </button>
-                            <div class="d-flex flex-column justify-content-end align-items-center ms-5">
-                                <p class="letra">Tus canciones</p>
-                                <p class="letraChicaDisabled">X canciones</p>
-                            </div>
-                        </div>
                         <div class="d-flex flex-column justify-content-start align-items-center">
                             <div class="p-2 d-flex flex-row justify-content-between w-100">
                                 <span class="material-icons md-light md-24">
-                                    download
+                                    favorite
                                 </span>
-                                <p class="letra"> Tus canciones</p>
-                                <span class="material-icons md-light md-24">
+                                <p class="letra"> Your favorites</p>
+                                <span v-on:click="pagina = 'Your Favorites'" class="material-icons md-light md-24">
                                     chevron_right
                                 </span>
                             </div>
@@ -154,44 +154,56 @@
                                 </span>
                             </div>
                         </div>
-    
+
                         <h3 class="letra">Tus ultimas escuchas</h3>
-    
+                        <button class="loginButton" id="quickstart-sign-in-google" v-on:click="toggleSignIn">
+                            Log-out</button>
+
                         <div class="d-flex flex-column align-items-center">
-                            <div class="d-flex flex-row align-items-center justify-content-between w-98">
-                                <img class="w-25" src="./img/silhouette.jpg" alt="">
+                            <div v-for="item in favorites" class="d-flex flex-row align-items-center justify-content-between w-98">
+                                <img class="w-25" v-bind:src="item.favorite.song.data.albumOfTrack.coverArt.sources[0].url" alt="">
                                 <div class="d-flex flex-column  justify-content-start">
-                                    <p class="letra">artista X</p>
+                                    <p class="letra">{{item.favorite.song.data.name}}</p>
                                     <p class="letraChicaDisabled">
-                                        disco de tal año
-                                        20 canciones
+                                        {{item.favorite.song.data.artists[0].profile.name}}
                                     </p>
                                 </div>
-                               
+
                                 <span class="material-icons md-light md-24">
                                     more_vert
                                 </span>
                             </div>
-                            <div class="d-flex flex-row align-items-center justify-content-between w-98">
-                                <img class="w-25" src="./img/silhouette.jpg" alt="">
-                                <div class="d-flex flex-column  justify-content-start">
-                                    <p class="letra">artista X</p>
-                                    <p class="letraChicaDisabled">
-                                        disco de tal año
-                                        20 canciones
-                                    </p>
-                                </div>
-                                <span class="material-icons md-light md-24">
-                                    more_vert
-                                </span>
-                            </div>
-                            <button class="loginButton" id="quickstart-sign-in-google" v-on:click="toggleSignIn" > Log-out</button>
-    
+                        </div>
+                        <div class="d-flex flex-row align-items-center justify-content-center w-98">
+                            <button class="loginButton" id="quickstart-sign-in-google" v-on:click="toggleSignIn">
+                                Log-out</button>
                         </div>
                     </div>
-                </section>
+                </div>
             </section>
-            
+            <section v-show="pagina == 'Your Favorites'">
+                <div v-if="favorites.length == 0" class="d-flex flex-column justify-content-center align-items-center bg-dark busqueda">
+                    <h1 class="letra">¡Nothing here!</h1>
+                    <p class="letraChicaDisabled">Go to search section or recognize to add songs to your favorites</p>
+                </div>
+                <div v-if="favorites.length > 0" class="d-flex flex-column justify-content-start bg-dark busqueda">
+                    <div class="d-flex flex-column align-items-center">
+                        <div v-for="item in favorites"
+                            class="d-flex flex-row align-items-center justify-content-between w-98">
+                            <img class="w-25" v-bind:src="item.song.data.albumOfTrack.coverArt.sources[0].url" alt="">
+                            <div class="d-flex flex-column  justify-content-start">
+                                <p class="letra">{{item.favorite.song.data.name}}</p>
+                                <p class="letraChicaDisabled">
+                                    {{item.favorite.song.data.artists.items[0].profile.name}}
+                                </p>
+                            </div>
+                            <span class="material-icons md-light md-24">
+                                more_vert
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </section>
             <section v-show="pagina == 'Recognition'" class="sectionRecognize">
 
                 <div class="d-flex flex-wrap justify-content-center">
@@ -226,7 +238,7 @@
 
             </section>
 
-            <section v-show="pagina == 'busqueda'" class="sectionSearch">
+            <section v-show="pagina == 'Busqueda'" class="sectionSearch">
 
                 <div class="w-100 p-4">
                     <div class="input-group searchBar">
@@ -237,10 +249,12 @@
                                 </span>
                             </button>
                         </div>
-                        <input @input="searchSongs()" type="text" id="search"  class="form-control border-0 searchBar backSearchBar" placeholder="Search for songs" aria-label="" aria-describedby="basic-addon1">
+                        <input @input="searchSongs()" type="text" id="search"
+                            class="form-control border-0 searchBar backSearchBar" placeholder="Search for songs"
+                            aria-label="" aria-describedby="basic-addon1">
                     </div>
-                </div>                              
-                
+                </div>
+
                 <div class="d-flex flex-wrap w-100 text-light p-4">
                     <p v-if="tracks.length > 0" class="w-100">Resultados</p>
 
@@ -254,19 +268,23 @@
                     </div> -->
 
 
-                    <div v-for="item in tracks" class="d-flex flex-row w-100 align-items-center justify-content-between p-2">
+                    <div v-for="item in tracks"
+                        class="d-flex flex-row w-100 align-items-center justify-content-between p-2">
                         <img class="w-25" v-bind:src="item.data.albumOfTrack.coverArt.sources[0].url" alt="">
                         <div class="d-flex flex-column  justify-content-start">
                             <p class="letra">{{item.data.name}}</p>
                             <p class="letraChicaDisabled">
                                 <!-- <p v-for="a in item.data.artists.items">{{a.profile.name}}</p> -->
                             </p>
-                        </div>                       
+                        </div>
+                        <span v-on:click="addFavorites(item)" class="material-icons md-light md-24">
+                            favorite
+                        </span>
                         <span class="material-icons md-light md-24">
                             more_vert
                         </span>
                     </div>
-                    
+
                 </div>
 
 
@@ -283,7 +301,7 @@
                         <!-- <a href="">
                             <img src="./img/icons/tapbar/Active=No.png" alt="">
                         </a> -->
-                        <span v-on:click="pagina = 'busqueda'" class="material-icons md-light md-24 md-inactive">
+                        <span v-on:click="pagina = 'Busqueda'" class="material-icons md-light md-24 md-inactive">
                             library_music
                         </span>
                     </div>
@@ -298,20 +316,22 @@
                         <!-- <a href="">
                             <img src="./img/icons/tapbar/Active=No, Like=Yes.png" alt="">
                         </a> -->
-                        <span class="material-icons md-light md-24 md-inactive">
+                        <span v-on:click="pagina = 'Profile'" class="material-icons md-light md-24 md-inactive">
                             favorite
                         </span>
                     </div>
                     <button class="homeIndicator mt-2"></button>
                 </div>
             </div>
-        </footer>   
+        </footer>
     </div>
     <script src="/__/firebase/9.8.3/firebase-app-compat.js"></script>
     <script src="/__/firebase/9.8.3/firebase-database-compat.js"></script>
     <script src="/__/firebase/9.8.3/firebase-auth-compat.js"></script>
     <script src="/__/firebase/init.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
+        crossorigin="anonymous"></script>
     <script src="https://unpkg.com/vue@3"></script>
     <script src="https://sdk.scdn.co/spotify-player.js"></script>
     <script src="./scripts/main.js"></script>
