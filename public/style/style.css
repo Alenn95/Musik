@@ -32,8 +32,7 @@ header {
 
 .profileImage{
     object-fit: cover;
-    height: 4vh;
-    width:9vw;
+    height: 4vh;    
 }
 
 footer {
