@@ -106,11 +106,11 @@ const app = Vue.createApp({
                     var providerData = user.providerData;
                     document.getElementById('quickstart-sign-in-google');
                     document.getElementById('quickstart-sign-in').textContent = 'Sign out';
-                    firebase.database().ref('Favoritos/' + this.currentUserID + '/').on("child_added", (data) => {
-                        let favorito = data.val()
-                        this.favorites.push(favorito)
-                        console.log(this.favorites)
-                    });
+
+                    // firebase.database().ref('Favoritos/' + this.currentUserID + '/').on("child_added", (data) => {
+                    //     let favorito = data.val()
+                    //     this.favorites = [...this.favorites, favorito];
+                    // });
 
                 } else {
                     document.getElementById('quickstart-sign-in-google');
@@ -155,7 +155,7 @@ const app = Vue.createApp({
             // player.connect();
 
 
-           
+
 
         };
 
@@ -353,7 +353,7 @@ const app = Vue.createApp({
                     console.log(this.user)
                 }
                 else {
-                    this.user = {photoURL: "https://cdn.icon-icons.com/icons2/1378/PNG/512/avatardefault_92824.png" };
+                    this.user = { photoURL: "https://cdn.icon-icons.com/icons2/1378/PNG/512/avatardefault_92824.png" };
                     this.currentUserID = "";
                     this.userEmail = "";
                     this.userPhoto = "";
@@ -361,6 +361,13 @@ const app = Vue.createApp({
                 }
             })
         },
+
+        verifyFavorites: function () {
+            firebase.database().ref('Favoritos/' + this.currentUserID + '/').on("child_added", (data) => {
+              let favorito = data.val().data
+              this.favorites = [...this.favorites, favorito];
+            });
+          },
 
 
 

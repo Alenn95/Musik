@@ -61,11 +61,12 @@
         </header>
         <main>
 
-            <section v-show="pagina == 'MusiK'">
+            <section v-show="pagina == 'Musik'">
                 <div class="d-flex flex-column align-items-center justufy-content-center bg-dark">
-                    <h1>¡Bienvenido!</h1>
-                    <p>{{userName}}</p>
-
+                    <h1 class="letra">¡Bienvenido!</h1>  
+                    <p class="letra">{{userName}}</p>
+                    
+                    
                 </div>
             </section>
 
@@ -103,6 +104,7 @@
                             </button>
                         </div>
                         {{getData}}
+                        {{verifyFavorites}}
                     </div>
                 </div>
                 <div v-show="currentUserID" class="perfilog">
@@ -156,16 +158,16 @@
                         </div>
 
                         <h3 class="letra">Tus ultimas escuchas</h3>
-                        <button class="loginButton" id="quickstart-sign-in-google" v-on:click="toggleSignIn">
-                            Log-out</button>
 
                         <div class="d-flex flex-column align-items-center">
                             <div v-for="item in favorites" class="d-flex flex-row align-items-center justify-content-between w-98">
-                                <img class="w-25" v-bind:src="item.favorite.song.data.albumOfTrack.coverArt.sources[0].url" alt="">
+                                <!-- <img class="w-25" v-bind:src="item.favorite.data.albumOfTrack.coverArt.sources[0].url" alt=""> -->
                                 <div class="d-flex flex-column  justify-content-start">
-                                    <p class="letra">{{item.favorite.song.data.name}}</p>
+                                    <p class="letra">
+                                        <!-- {{item.favorite.song.data.name}} -->
+                                    </p>
                                     <p class="letraChicaDisabled">
-                                        {{item.favorite.song.data.artists[0].profile.name}}
+                                        <!-- {{item.favorite.song.data.artists[0].profile.name}} -->
                                     </p>
                                 </div>
 
@@ -176,7 +178,8 @@
                         </div>
                         <div class="d-flex flex-row align-items-center justify-content-center w-98">
                             <button class="loginButton" id="quickstart-sign-in-google" v-on:click="toggleSignIn">
-                                Log-out</button>
+                                Log-out
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -190,11 +193,13 @@
                     <div class="d-flex flex-column align-items-center">
                         <div v-for="item in favorites"
                             class="d-flex flex-row align-items-center justify-content-between w-98">
-                            <img class="w-25" v-bind:src="item.song.data.albumOfTrack.coverArt.sources[0].url" alt="">
+                            <!-- <img class="w-25" v-bind:src="item.albumOfTrack.coverArt.sources[0].url" alt=""> -->
                             <div class="d-flex flex-column  justify-content-start">
-                                <p class="letra">{{item.favorite.song.data.name}}</p>
+                                <p class="letra">
+                                    <!-- {{item.name}} -->
+                                </p>
                                 <p class="letraChicaDisabled">
-                                    {{item.favorite.song.data.artists.items[0].profile.name}}
+                                    <!-- {{item.artists.items[0].profile.name}} -->
                                 </p>
                             </div>
                             <span class="material-icons md-light md-24">
