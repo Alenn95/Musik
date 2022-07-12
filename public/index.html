@@ -65,7 +65,26 @@
                 <div class="d-flex flex-column align-items-center justufy-content-center bg-dark">
                     <h1 class="letra">¡Bienvenido!</h1>  
                     <p class="letra">{{userName}}</p>
-
+                    <hr>
+                    <p class="letraChicaDisabled">Top 50 of this week</p>
+                    <div class="container-sm ">
+                        <div v-for="item in favorites"
+                        class="d-flex flex-row w-100 w-lg-50 align-items-center justify-content-between p-2">
+                            <img class="w-25" v-bind:src="item.albumOfTrack.coverArt.sources[0].url" alt="">
+                            <div class="d-flex flex-column  justify-content-start">
+                                <p class="letra">{{item.name}}</p>
+                                <p class="letraChicaDisabled">
+                                    {{item.artists.items[0].profile.name}}
+                                </p>
+                            </div>
+                            <div class="d-flex">
+                                <span class="material-icons md-light md-24">
+                                    more_vert
+                                </span>
+                            </div>                        
+                        </div>
+                    </div>
+ 
                     
                 </div>
             </section>
@@ -159,29 +178,28 @@
 
                         <h3 class="letra">Tus ultimas escuchas</h3>
 
-                        <div class="d-flex flex-column align-items-center">
-                            <div v-for="item in favorites" class="d-flex flex-row align-items-center justify-content-between w-98">
+                        <div class="container-sm ">
+                            <div v-for="item in favorites"
+                            class="d-flex flex-row w-100 w-lg-50 align-items-center justify-content-between p-2">
                                 <img class="w-25" v-bind:src="item.albumOfTrack.coverArt.sources[0].url" alt="">
                                 <div class="d-flex flex-column  justify-content-start">
-                                    <p class="letra">
-                                        {{item.name}}
-                                    </p>
+                                    <p class="letra">{{item.name}}</p>
                                     <p class="letraChicaDisabled">
                                         {{item.artists.items[0].profile.name}}
                                     </p>
                                 </div>
-
-                                <span class="material-icons md-light md-24">
-                                    more_vert
-                                </span>
+                                <div class="d-flex">
+                                    <span class="material-icons md-light md-24">
+                                        more_vert
+                                    </span>
+                                </div>                        
                             </div>
-                        </div>
-                        <div class="d-flex flex-row align-items-center justify-content-center w-98">
-                            <button class="loginButton" id="quickstart-sign-in-google" v-on:click="toggleSignIn">
-                                Log-out
-                            </button>
-                        </div>
+                            
+                        </div>  
                     </div>
+                    <button class="btn btn-lg btn-dark" id="quickstart-sign-in-google" v-on:click="toggleSignIn">
+                        Log-out
+                    </button>
                 </div>
             </section>
             <section v-show="pagina == 'Your Favorites'">
@@ -190,21 +208,21 @@
                     <p class="letraChicaDisabled">Go to search section or recognize to add songs to your favorites</p>
                 </div>
                 <div v-if="favorites.length > 0" class="d-flex flex-column justify-content-start bg-dark busqueda">
-                    <div class="d-flex flex-column align-items-center">
+                    <div class="container-sm ">
                         <div v-for="item in favorites"
-                            class="d-flex flex-row align-items-center justify-content-between w-98">
-                            <!-- <img class="w-25" v-bind:src="item.albumOfTrack.coverArt.sources[0].url" alt=""> -->
+                        class="d-flex flex-row w-100 w-lg-50 align-items-center justify-content-between p-2">
+                            <img class="w-25" v-bind:src="item.albumOfTrack.coverArt.sources[0].url" alt="">
                             <div class="d-flex flex-column  justify-content-start">
-                                <p class="letra">
-                                    <!-- {{item.name}} -->
-                                </p>
+                                <p class="letra">{{item.name}}</p>
                                 <p class="letraChicaDisabled">
-                                    <!-- {{item.artists.items[0].profile.name}} -->
+                                    {{item.artists.items[0].profile.name}}
                                 </p>
                             </div>
-                            <span class="material-icons md-light md-24">
-                                more_vert
-                            </span>
+                            <div class="d-flex">
+                                <span class="material-icons md-light md-24">
+                                    more_vert
+                                </span>
+                            </div>                        
                         </div>
                     </div>
                 </div>
@@ -216,23 +234,23 @@
                     <div v-if="recording=='off'" class="m-4 d-flex flex-wrap justify-content-center">
                         <img onclick="grabarAudio()" src="./img/icons/microphone_icon.svg" alt="microphone_icon"
                             class="recognizeButton">
-                        <p class="w-100 m-4 text-center textoRecognize">Press to recognize some music</p>
+                        <p class="w-100 m-4 text-center letra">Press to recognize some music</p>
                     </div>
 
 
                     <div v-if="recording=='active'" class="m-4 d-flex flex-wrap justify-content-center">
                         <img src="./img/circle-loader.gif" alt="recording..." class="recordingGif">
-                        <p class="w-100 mt-5 text-center textoRecognize">We are listening to you...</p>
-                        <p class="w-100 text-center textoRecognize">Keep singing :)</p>
+                        <p class="w-100 mt-5 text-center letra">We are listening to you...</p>
+                        <p class="w-100 text-center letra">Keep singing :)</p>
                     </div>
 
                     <div v-if="recording=='searching'" class="m-4 d-flex flex-wrap justify-content-center">
                         <img src="./img/loading.gif" alt="searching..." class="loadingGif">
-                        <p class="w-100 text-center textoRecognize">Now we are searching in our library...</p>
+                        <p class="w-100 text-center letra">Now we are searching in our library...</p>
                     </div>
 
                     <div v-if="recording=='finished'" class="m-4 d-flex flex-wrap justify-content-center">
-                        <p class="w-100 text-center textoRecognize">We think this is what are you looking for...</p>
+                        <p class="w-100 text-center letra">We think this is what are you looking for...</p>
                     </div>
 
                     <iframe class="m-4" style="border-radius:12px" v-bind:src="spotifyLink" width="100%" height="380"
@@ -311,8 +329,8 @@
                         <!-- <a href="">
                             <img src="./img/icons/tapbar/Active=No.png" alt="">
                         </a> -->
-                        <span v-on:click="pagina = 'Busqueda'" class="material-icons md-light md-24 md-inactive">
-                            library_music
+                        <span v-on:click="pagina = 'Musik'" class="material-icons md-light md-24 md-inactive">
+                            home
                         </span>
                     </div>
                     <div class="p-2">

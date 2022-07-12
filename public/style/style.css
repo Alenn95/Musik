@@ -42,6 +42,13 @@ footer {
 main{
     margin-bottom: 8vh;
 }
+.home{
+    height: 84vh;
+
+}
+hr{
+    color: azure;
+}
 
 .homeIndicator {
     position: absolute;
