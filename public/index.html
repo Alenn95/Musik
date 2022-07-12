@@ -65,7 +65,7 @@
                 <div class="d-flex flex-column align-items-center justufy-content-center bg-dark">
                     <h1 class="letra">¡Bienvenido!</h1>  
                     <p class="letra">{{userName}}</p>
-                    
+
                     
                 </div>
             </section>
@@ -161,13 +161,13 @@
 
                         <div class="d-flex flex-column align-items-center">
                             <div v-for="item in favorites" class="d-flex flex-row align-items-center justify-content-between w-98">
-                                <!-- <img class="w-25" v-bind:src="item.favorite.data.albumOfTrack.coverArt.sources[0].url" alt=""> -->
+                                <img class="w-25" v-bind:src="item.albumOfTrack.coverArt.sources[0].url" alt="">
                                 <div class="d-flex flex-column  justify-content-start">
                                     <p class="letra">
-                                        <!-- {{item.favorite.song.data.name}} -->
+                                        {{item.name}}
                                     </p>
                                     <p class="letraChicaDisabled">
-                                        <!-- {{item.favorite.song.data.artists[0].profile.name}} -->
+                                        {{item.artists.items[0].profile.name}}
                                     </p>
                                 </div>
 

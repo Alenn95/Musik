@@ -366,8 +366,12 @@ const app = Vue.createApp({
 
         verifyFavorites: function () {
             firebase.database().ref('Favoritos/' + this.currentUserID + '/').on("child_added", (data) => {
-              let favorito = data.val().data
-              this.favorites = [...this.favorites, favorito];
+             
+              if (data.val().data != undefined){
+                let favorito = data.val().data
+                this.favorites = [...this.favorites, favorito];
+              }
+             
             });
           },
 
