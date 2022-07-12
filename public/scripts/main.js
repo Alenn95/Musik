@@ -120,6 +120,8 @@ const app = Vue.createApp({
                 document.getElementById('quickstart-sign-in').disabled = false;
             });
 
+
+            
             // this.player = player
 
             // // Ready
@@ -179,7 +181,7 @@ const app = Vue.createApp({
                 const options = {
                     method: 'GET',
                     headers: {
-                        'X-RapidAPI-Key': '7df59f583fmshebd943cc0215877p117054jsncaa72e84bd61',
+                        'X-RapidAPI-Key': 'b7142c243amsh161aaa78cc88820p14d689jsnd7f7ed8a269a',
                         'X-RapidAPI-Host': 'spotify23.p.rapidapi.com'
                     }
                 };
