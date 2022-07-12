@@ -1,7 +1,7 @@
 const app = Vue.createApp({
     data() {
         return {
-            pagina: "Musik",
+            pagina: "cancion",
             recording: "off",
             audioApiResponse: "",
             spotifyLink: "",
@@ -13,6 +13,12 @@ const app = Vue.createApp({
             userEmail:"",
             userPhoto:"",
             userName:"",
+
+            // Reproductor
+            portada: "",
+            nombre: "",
+            artistas: "",
+            paused:"",
         }
     },
 
@@ -50,7 +56,7 @@ const app = Vue.createApp({
         })
 
         window.onSpotifyWebPlaybackSDKReady = () => {
-            const token = 'BQBg0fs10nH-QPe8-pw9N94AomUGp-tcZWfcEmpFTWHoaton7xFxmsZOoBKv0iDUlDpWzxTdoGWfbrRxdZ1y0pJ9YzQZW6YFZ3g9hKMtRdaDkhpY3R9ZZHfrQFI8oiGtBClMVp2LKMoLa8PSoW-YP2EdFiTtff9Gl6ow1cFyKJF-R-tb4gW8U0_96daPWpJ87q7rg72rQ4H7Svo7EDdEVHbRukw';
+            const token = 'BQA-FwQlM3a7S1-bAysMrAyXkfP2yAILR5wRpQRD0vzqKa9ogqNwZRWQ61Q9ibTcY4voKT76HiaMyKOgEGpX6Zuyvva5quLZi58NPfL0wcgmO7d3xWWzj2AFgCKptVT5NEvEkt4lANrpUL5vPQgBkOxQqylj69DcA2W8HsLD5qI7dcGbvcYx3ELmQOLyXkQSQi8Um8AgD-5IKvUx2Z_X3XSTvv4';
             const player = new Spotify.Player({
                 name: 'Web Playback SDK Quick Start Player',
                 getOAuthToken: cb => { cb(token); },
@@ -62,7 +68,19 @@ const app = Vue.createApp({
             // Ready
             player.addListener('ready', ({ device_id }) => {
                 console.log('Ready with Device ID', device_id);
-                this.device_id = device_id
+                this.device_id = device_id;
+                // this.player.getCurrentState().then(state => {
+                //     if (!state) {
+                //       console.error('User is not playing music through the Web Playback SDK');
+                //       return;
+                //     }
+                  
+                //     var current_track = state.track_window.current_track;
+                //     var next_track = state.track_window.next_tracks[0];
+                  
+                //     console.log('Currently Playing', current_track);
+                //     console.log('Playing Next', next_track);
+                // });
 
             });
 
@@ -83,13 +101,24 @@ const app = Vue.createApp({
                 console.error(message);
             });
 
-            document.getElementById('togglePlay').onclick = function() {
-              player.togglePlay();
-            };
+            player.addListener('player_state_changed', ({
+                position,
+                duration,
+                track_window: { current_track }
+              }) => {
+                console.log('Currently Playing', current_track);
+                console.log('Position in Song', position);
+                console.log('Duration of Song', duration);
+              });
 
+
+
+            
 
 
             player.connect();
+
+            
         };
 
         // window.onload = function () {
@@ -171,7 +200,28 @@ const app = Vue.createApp({
                     },
                 });
             });
+            
+
         },
+
+        pause:function(event){
+            this.player.togglePlay();
+            // if(event.target.classList.contains("fa-pause")){
+            //     event.target.classList.replace("fa-pause", "fa-play")
+            //   }else{
+            //     event.target.classList.replace("fa-play", "fa-pause")
+            // }
+        },
+
+        reproduce: function(a,imagen,titulo,artista){
+            this.pagina = 'cancion'
+            this.play(a);
+            this.portada = imagen;
+            this.nombre = titulo;
+            this.artistas = artista
+
+            
+        }
 
         // toggleSignIn: function () {
         //     if (!firebase.auth().currentUser) {
@@ -279,6 +329,8 @@ const app = Vue.createApp({
                 busqueda.setAttribute("class", "md-inactive")
             }
         },
+
+       
 
         // getData: function () {
         //     firebase.auth().onAuthStateChanged((user) => {
