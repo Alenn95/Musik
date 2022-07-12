@@ -95,30 +95,30 @@ const app = Vue.createApp({
         // };
 
         window.onload = function () {
-            // firebase.auth().onAuthStateChanged((user) => {
-            //     if (user) {
-            //         var displayName = user.displayName;
-            //         var email = user.email;
-            //         var emailVerified = user.emailVerified;
-            //         var photoURL = user.photoURL;
-            //         var isAnonymous = user.isAnonymous;
-            //         var uid = user.uid;
-            //         var providerData = user.providerData;
-            //         document.getElementById('quickstart-sign-in-google');
-            //         document.getElementById('quickstart-sign-in').textContent = 'Sign out';
-            //         firebase.database().ref('Favoritos/' + this.currentUserID + '/').on("child_added", (data) => {
-            //             let favorito = data.val()
-            //             this.favorites.push(favorito)
-            //             console.log(this.favorites)
-            //         });
+            firebase.auth().onAuthStateChanged((user) => {
+                if (user) {
+                    var displayName = user.displayName;
+                    var email = user.email;
+                    var emailVerified = user.emailVerified;
+                    var photoURL = user.photoURL;
+                    var isAnonymous = user.isAnonymous;
+                    var uid = user.uid;
+                    var providerData = user.providerData;
+                    document.getElementById('quickstart-sign-in-google');
+                    document.getElementById('quickstart-sign-in').textContent = 'Sign out';
+                    firebase.database().ref('Favoritos/' + this.currentUserID + '/').on("child_added", (data) => {
+                        let favorito = data.val()
+                        this.favorites.push(favorito)
+                        console.log(this.favorites)
+                    });
 
-            //     } else {
-            //         document.getElementById('quickstart-sign-in-google');
-            //         document.getElementById('quickstart-sign-in');
-            //     }
-            //     document.getElementById('quickstart-sign-in-google').disabled = false;
-            //     document.getElementById('quickstart-sign-in').disabled = false;
-            // });
+                } else {
+                    document.getElementById('quickstart-sign-in-google');
+                    document.getElementById('quickstart-sign-in');
+                }
+                document.getElementById('quickstart-sign-in-google').disabled = false;
+                document.getElementById('quickstart-sign-in').disabled = false;
+            });
 
 
             
@@ -227,116 +227,116 @@ const app = Vue.createApp({
             });
         },
 
-        // toggleSignIn: function () {
-        //     if (!firebase.auth().currentUser) {
-        //         var provider = new firebase.auth.GoogleAuthProvider();
-        //         provider.addScope('https://www.googleapis.com/auth/contacts.readonly');
-        //         firebase.auth().signInWithPopup(provider).then(function (result) {
-        //             // This gives you a Google Access Token. You can use it to access the Google API.
-        //             var token = result.credential.accessToken;
-        //             // The signed-in user info.
-        //             var user = result.user;
-        //         }).catch(function (error) {
-        //             // Handle Errors here.
-        //             var errorCode = error.code;
-        //             var errorMessage = error.message;
-        //             // The email of the user's account used.
-        //             var email = error.email;
-        //             // The firebase.auth.AuthCredential type that was used.
-        //             var credential = error.credential;
-        //             if (errorCode === 'auth/account-exists-with-different-credential') {
-        //                 alert('You have already signed up with a different auth provider for that email.');
-        //                 // If you are using multiple auth providers on your app you should handle linking
-        //                 // the user's accounts here.
-        //             } else {
-        //                 console.error(error);
-        //             }
-        //         });
-        //     } else {
-        //         firebase.auth().signOut();
-        //     }
-        //     document.getElementById('quickstart-sign-in-google').disabled = true;
-        // },
+        toggleSignIn: function () {
+            if (!firebase.auth().currentUser) {
+                var provider = new firebase.auth.GoogleAuthProvider();
+                provider.addScope('https://www.googleapis.com/auth/contacts.readonly');
+                firebase.auth().signInWithPopup(provider).then(function (result) {
+                    // This gives you a Google Access Token. You can use it to access the Google API.
+                    var token = result.credential.accessToken;
+                    // The signed-in user info.
+                    var user = result.user;
+                }).catch(function (error) {
+                    // Handle Errors here.
+                    var errorCode = error.code;
+                    var errorMessage = error.message;
+                    // The email of the user's account used.
+                    var email = error.email;
+                    // The firebase.auth.AuthCredential type that was used.
+                    var credential = error.credential;
+                    if (errorCode === 'auth/account-exists-with-different-credential') {
+                        alert('You have already signed up with a different auth provider for that email.');
+                        // If you are using multiple auth providers on your app you should handle linking
+                        // the user's accounts here.
+                    } else {
+                        console.error(error);
+                    }
+                });
+            } else {
+                firebase.auth().signOut();
+            }
+            document.getElementById('quickstart-sign-in-google').disabled = true;
+        },
 
 
-        // toggleSignInMail: function () {
-        //     if (firebase.auth().currentUser) {
-        //         firebase.auth().signOut();
-        //     } else {
-        //         var email = document.getElementById('email').value;
-        //         var password = document.getElementById('password').value;
-        //         if (email.length < 4) {
-        //             alert('Please enter an email address.');
-        //             return;
-        //         }
-        //         if (password.length < 4) {
-        //             alert('Please enter a password.');
-        //             return;
-        //         }
-        //         // Sign in with email and pass.
-        //         firebase.auth().signInWithEmailAndPassword(email, password).catch(function (error) {
-        //             // Handle Errors here.
-        //             var errorCode = error.code;
-        //             var errorMessage = error.message;
-        //             if (errorCode === 'auth/wrong-password') {
-        //                 alert('Wrong password.');
-        //             } else {
-        //                 alert(errorMessage);
-        //             }
-        //             console.log(error);
-        //             document.getElementById('quickstart-sign-in').disabled = false;
-        //         });
-        //     }
-        //     document.getElementById('quickstart-sign-in').disabled = true;
-        // },
+        toggleSignInMail: function () {
+            if (firebase.auth().currentUser) {
+                firebase.auth().signOut();
+            } else {
+                var email = document.getElementById('email').value;
+                var password = document.getElementById('password').value;
+                if (email.length < 4) {
+                    alert('Please enter an email address.');
+                    return;
+                }
+                if (password.length < 4) {
+                    alert('Please enter a password.');
+                    return;
+                }
+                // Sign in with email and pass.
+                firebase.auth().signInWithEmailAndPassword(email, password).catch(function (error) {
+                    // Handle Errors here.
+                    var errorCode = error.code;
+                    var errorMessage = error.message;
+                    if (errorCode === 'auth/wrong-password') {
+                        alert('Wrong password.');
+                    } else {
+                        alert(errorMessage);
+                    }
+                    console.log(error);
+                    document.getElementById('quickstart-sign-in').disabled = false;
+                });
+            }
+            document.getElementById('quickstart-sign-in').disabled = true;
+        },
 
-        // //BOTON DE RESGISTRO CON MAIL 
+        //BOTON DE RESGISTRO CON MAIL 
 
-        // handleSignUp: function () {
-        //     var email = document.getElementById('email').value;
-        //     var password = document.getElementById('password').value;
-        //     if (email.length < 4) {
-        //         alert('Please enter an email address.');
-        //         return;
-        //     }
-        //     if (password.length < 4) {
-        //         alert('Please enter a password.');
-        //         return;
-        //     }
-        //     firebase.auth().createUserWithEmailAndPassword(email, password).catch(function (error) {
-        //         var errorCode = error.code;
-        //         var errorMessage = error.message;
-        //         if (errorCode == 'auth/weak-password') {
-        //             alert('The password is too weak.');
-        //         } else {
-        //             alert(errorMessage);
-        //         }
-        //         console.log(error);
-        //     });
-        // },
+        handleSignUp: function () {
+            var email = document.getElementById('email').value;
+            var password = document.getElementById('password').value;
+            if (email.length < 4) {
+                alert('Please enter an email address.');
+                return;
+            }
+            if (password.length < 4) {
+                alert('Please enter a password.');
+                return;
+            }
+            firebase.auth().createUserWithEmailAndPassword(email, password).catch(function (error) {
+                var errorCode = error.code;
+                var errorMessage = error.message;
+                if (errorCode == 'auth/weak-password') {
+                    alert('The password is too weak.');
+                } else {
+                    alert(errorMessage);
+                }
+                console.log(error);
+            });
+        },
 
-        // icons: function () {
-        //     let perfil = document.getElementById("person");
-        //     let setup = document.getElementById("settings");
-        //     let busqueda = document.getElementById("search");
-        //     if (this.pagina != "perfil") {
-        //         perfil.setAttribute("class", "md-inactive")
-        //     }
-        //     if (this.pagina != "settings") {
-        //         setup.setAttribute("class", "md-inactive")
-        //     }
-        //     if (this.pagina != "search") {
-        //         busqueda.setAttribute("class", "md-inactive")
-        //     }
-        // },
+        icons: function () {
+            let perfil = document.getElementById("person");
+            let setup = document.getElementById("settings");
+            let busqueda = document.getElementById("search");
+            if (this.pagina != "perfil") {
+                perfil.setAttribute("class", "md-inactive")
+            }
+            if (this.pagina != "settings") {
+                setup.setAttribute("class", "md-inactive")
+            }
+            if (this.pagina != "search") {
+                busqueda.setAttribute("class", "md-inactive")
+            }
+        },
 
-        // addFavorites: function (song) {
-        //     let cancion = song
-        //     let newCommentKey = firebase.database().ref().child('Favoritos/' + this.currentUserID + '/').push().key;
-        //     var update = {};
-        //     update['Favoritos/' + this.currentUserID + '/' + newCommentKey] = cancion;
-        //     firebase.database().ref().update(update);
-        // },
+        addFavorites: function (song) {
+            let cancion = song
+            let newCommentKey = firebase.database().ref().child('Favoritos/' + this.currentUserID + '/').push().key;
+            var update = {};
+            update['Favoritos/' + this.currentUserID + '/' + newCommentKey] = cancion;
+            firebase.database().ref().update(update);
+        },
 
     },
 
@@ -344,25 +344,25 @@ const app = Vue.createApp({
 
 
 
-        // getData: function () {
-        //     firebase.auth().onAuthStateChanged((user) => {
-        //         if (user) {
-        //             this.user = user;
-        //             this.currentUserID = JSON.parse(JSON.stringify(this.user)).uid;
-        //             this.userEmail = JSON.parse(JSON.stringify(this.user)).email;
-        //             this.userPhoto = JSON.parse(JSON.stringify(this.user)).photoURL;
-        //             this.userName = JSON.parse(JSON.stringify(this.user)).displayName;
-        //             console.log(this.user)
-        //         }
-        //         else {
-        //             this.user = {photoURL: "https://cdn.icon-icons.com/icons2/1378/PNG/512/avatardefault_92824.png" };
-        //             this.currentUserID = "";
-        //             this.userEmail = "";
-        //             this.userPhoto = "";
-        //             this.userName = "";
-        //         }
-        //     })
-        // },
+        getData: function () {
+            firebase.auth().onAuthStateChanged((user) => {
+                if (user) {
+                    this.user = user;
+                    this.currentUserID = JSON.parse(JSON.stringify(this.user)).uid;
+                    this.userEmail = JSON.parse(JSON.stringify(this.user)).email;
+                    this.userPhoto = JSON.parse(JSON.stringify(this.user)).photoURL;
+                    this.userName = JSON.parse(JSON.stringify(this.user)).displayName;
+                    console.log(this.user)
+                }
+                else {
+                    this.user = {photoURL: "https://cdn.icon-icons.com/icons2/1378/PNG/512/avatardefault_92824.png" };
+                    this.currentUserID = "";
+                    this.userEmail = "";
+                    this.userPhoto = "";
+                    this.userName = "";
+                }
+            })
+        },
 
 
 
