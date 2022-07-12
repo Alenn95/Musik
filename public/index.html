@@ -284,17 +284,18 @@
                         <p class="artista" v-for="a in artistas">{{a.profile.name}}</p>
                     </div>
                     <div class="progress">
-                        <div class="progress-bar bg-success barra" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                        <div class="progress-bar bg-success barra" role="progressbar" style="width: 0% " aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" id="proBar"></div>
                         
                     </div>
                     <div class="time">
-                        <p>0:25</p>
-                        <p>3:27</p>
+                        <p>{{Math.floor(livePosition / 60)}} : {{Math.floor(livePosition % 60) < 10 ? '0' + Math.floor(livePosition % 60).toString() : Math.floor(livePosition % 60).toString()}}</p>
+                        <p>{{Math.floor(duration / 60)}} : {{Math.floor(duration % 60) < 10 ? '0' + Math.floor(duration % 60).toString() : Math.floor(duration % 60).toString()}}</p>
                     </div>
                     <div></div>
                 </div>
                 <div class="play-c">
-                    <i class="fa-solid fa-pause" id="togglePlay" @click="pause($event)"></i>
+                    <i class="fa-solid fa-pause" v-show="paused == false" @click="pause($event)"></i>
+                    <i class="fa-solid fa-play" v-show="paused == true" @click="pause($event)"></i>
                 </div>
                 
             </section>
@@ -303,10 +304,11 @@
         </main>
 
         <footer class="bg-dark fixed-bottom">
-            <div class="mini-rep">
-                <img v-bind:src="portada" alt="">
-                <p>{{nombre}}</p>
-                <i class="fa-solid fa-pause" @click="pause($event)"></i>
+            <div class="mini-rep" v-show="pagina != 'cancion' && nombre != ''"  >
+                <img v-bind:src="portada" alt=""@click = "pagina = 'cancion'">
+                <p @click = "pagina = 'cancion'">{{nombre}}</p>
+                <i class="fa-solid fa-pause" v-show="paused == false" @click="pause($event)"></i>
+                <i class="fa-solid fa-play" v-show="paused == true" @click="pause($event)"></i>
             </div>
             <div class="container">
                 <div class="d-flex align-items-center justify-content-between">

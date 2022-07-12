@@ -1,7 +1,7 @@
 const app = Vue.createApp({
     data() {
         return {
-            pagina: "cancion",
+            pagina: "Musik",
             recording: "off",
             audioApiResponse: "",
             spotifyLink: "",
@@ -18,7 +18,13 @@ const app = Vue.createApp({
             portada: "",
             nombre: "",
             artistas: "",
+
             paused:"",
+            position:"",
+            duration:"",
+            updateTime:"",
+
+            livePosition:"0:00",
         }
     },
 
@@ -56,7 +62,7 @@ const app = Vue.createApp({
         })
 
         window.onSpotifyWebPlaybackSDKReady = () => {
-            const token = 'BQA-FwQlM3a7S1-bAysMrAyXkfP2yAILR5wRpQRD0vzqKa9ogqNwZRWQ61Q9ibTcY4voKT76HiaMyKOgEGpX6Zuyvva5quLZi58NPfL0wcgmO7d3xWWzj2AFgCKptVT5NEvEkt4lANrpUL5vPQgBkOxQqylj69DcA2W8HsLD5qI7dcGbvcYx3ELmQOLyXkQSQi8Um8AgD-5IKvUx2Z_X3XSTvv4';
+            const token = 'BQB-w09KOK3QKbtZ3Ns6V8mmre82EgH4xy9lLrn6YDFfxygbdkKJObVDAvw_6Nfgg9MyGuxxjSJzTJb7A7OM5GGr0SYJhLv3PslBaX4kxfeRJyd0s-51R9vV9bQCxa8vWkbwnUVG45v12UdUA-lu3JhxNupkpkk5oeqxm3oisM4MZSGXO78wq4aJBnc6Vb5UgIcqRdyhfEwhqZDU9YNmSeaQh18';
             const player = new Spotify.Player({
                 name: 'Web Playback SDK Quick Start Player',
                 getOAuthToken: cb => { cb(token); },
@@ -104,14 +110,21 @@ const app = Vue.createApp({
             player.addListener('player_state_changed', ({
                 position,
                 duration,
-                track_window: { current_track }
-              }) => {
-                console.log('Currently Playing', current_track);
-                console.log('Position in Song', position);
+                paused,    
+            }) => {
+                
                 console.log('Duration of Song', duration);
-              });
+                console.log('prueba de pausa', paused);
+                this.paused = paused
+                this.position = position/1000
+                this.duration = duration/1000
+                this.updateTime = performance.now()
 
 
+                
+            });
+
+            
 
             
 
@@ -120,28 +133,6 @@ const app = Vue.createApp({
 
             
         };
-
-        // window.onload = function () {
-        //     firebase.auth().onAuthStateChanged((user) => {
-        //       if (user) {
-        //         var displayName = user.displayName;
-        //         var email = user.email;
-        //         var emailVerified = user.emailVerified;
-        //         var photoURL = user.photoURL;
-        //         var isAnonymous = user.isAnonymous;
-        //         var uid = user.uid;
-        //         var providerData = user.providerData;
-        //         document.getElementById('quickstart-sign-in-google').textContent = 'Sign out';
-        //         document.getElementById('quickstart-sign-in').textContent = 'Sign out';
-        //       } else {
-        //         document.getElementById('quickstart-sign-in-google').textContent = 'Sign in with Google';
-        //         document.getElementById('quickstart-sign-in').textContent = 'Sign in';
-        //       }
-        //       document.getElementById('quickstart-sign-in-google').disabled = false;
-        //       document.getElementById('quickstart-sign-in').disabled = false;
-        //     });
-      
-        //   }
 
     },
 
@@ -156,7 +147,7 @@ const app = Vue.createApp({
                 const options = {
                     method: 'GET',
                     headers: {
-                        'X-RapidAPI-Key': '7df59f583fmshebd943cc0215877p117054jsncaa72e84bd61',
+                        'X-RapidAPI-Key': 'b7142c243amsh161aaa78cc88820p14d689jsnd7f7ed8a269a',
                         'X-RapidAPI-Host': 'spotify23.p.rapidapi.com'
                     }
                 };
@@ -200,18 +191,33 @@ const app = Vue.createApp({
                     },
                 });
             });
+
+            let bar = document.getElementById('proBar')
+
+            let timeLoop = window.setInterval(()=>{
+                this.livePosition = this.getStatePosition()
+                console.log(this.getStatePosition())
+                let positionBar = this.livePosition*100/this.duration
+                console.log(positionBar)
+                bar.style.width = positionBar.toString() + "%"
+            }
+            , 1000);
             
 
         },
 
-        pause:function(event){
+        pause:function(){
             this.player.togglePlay();
-            // if(event.target.classList.contains("fa-pause")){
-            //     event.target.classList.replace("fa-pause", "fa-play")
-            //   }else{
-            //     event.target.classList.replace("fa-play", "fa-pause")
-            // }
         },
+
+        getStatePosition:function(){
+            if (this.paused) {
+               return this.position;
+            }
+            let position = this.position + (performance.now() - this.updateTime) / 1000;
+            return position > this.duration ? this.duration : position;
+        },
+    
 
         reproduce: function(a,imagen,titulo,artista){
             this.pagina = 'cancion'
@@ -222,94 +228,6 @@ const app = Vue.createApp({
 
             
         }
-
-        // toggleSignIn: function () {
-        //     if (!firebase.auth().currentUser) {
-        //         var provider = new firebase.auth.GoogleAuthProvider();
-        //         provider.addScope('https://www.googleapis.com/auth/contacts.readonly');
-        //         firebase.auth().signInWithPopup(provider).then(function (result) {
-        //             // This gives you a Google Access Token. You can use it to access the Google API.
-        //             var token = result.credential.accessToken;
-        //             // The signed-in user info.
-        //             var user = result.user;
-        //         }).catch(function (error) {
-        //             // Handle Errors here.
-        //             var errorCode = error.code;
-        //             var errorMessage = error.message;
-        //             // The email of the user's account used.
-        //             var email = error.email;
-        //             // The firebase.auth.AuthCredential type that was used.
-        //             var credential = error.credential;
-        //             if (errorCode === 'auth/account-exists-with-different-credential') {
-        //                 alert('You have already signed up with a different auth provider for that email.');
-        //                 // If you are using multiple auth providers on your app you should handle linking
-        //                 // the user's accounts here.
-        //             } else {
-        //                 console.error(error);
-        //             }
-        //         });
-        //     } else {
-        //         firebase.auth().signOut();
-        //     }
-        //     document.getElementById('quickstart-sign-in-google').disabled = true;
-        // },
-
-
-        // toggleSignInMail: function () {
-        //     if (firebase.auth().currentUser) {
-        //         firebase.auth().signOut();
-        //     } else {
-        //         var email = document.getElementById('email').value;
-        //         var password = document.getElementById('password').value;
-        //         if (email.length < 4) {
-        //             alert('Please enter an email address.');
-        //             return;
-        //         }
-        //         if (password.length < 4) {
-        //             alert('Please enter a password.');
-        //             return;
-        //         }
-        //         // Sign in with email and pass.
-        //         firebase.auth().signInWithEmailAndPassword(email, password).catch(function (error) {
-        //             // Handle Errors here.
-        //             var errorCode = error.code;
-        //             var errorMessage = error.message;
-        //             if (errorCode === 'auth/wrong-password') {
-        //                 alert('Wrong password.');
-        //             } else {
-        //                 alert(errorMessage);
-        //             }
-        //             console.log(error);
-        //             document.getElementById('quickstart-sign-in').disabled = false;
-        //         });
-        //     }
-        //     document.getElementById('quickstart-sign-in').disabled = true;
-        // },
-
-        // //BOTON DE RESGISTRO CON MAIL 
-
-        // handleSignUp: function () {
-        //     var email = document.getElementById('email').value;
-        //     var password = document.getElementById('password').value;
-        //     if (email.length < 4) {
-        //         alert('Please enter an email address.');
-        //         return;
-        //     }
-        //     if (password.length < 4) {
-        //         alert('Please enter a password.');
-        //         return;
-        //     }
-        //     firebase.auth().createUserWithEmailAndPassword(email, password).catch(function (error) {
-        //         var errorCode = error.code;
-        //         var errorMessage = error.message;
-        //         if (errorCode == 'auth/weak-password') {
-        //             alert('The password is too weak.');
-        //         } else {
-        //             alert(errorMessage);
-        //         }
-        //         console.log(error);
-        //     });
-        // },
 
     },
 
@@ -330,27 +248,7 @@ const app = Vue.createApp({
             }
         },
 
-       
-
-        // getData: function () {
-        //     firebase.auth().onAuthStateChanged((user) => {
-        //         if (user) {
-        //             this.user = user;
-        //             this.currentUserID = JSON.parse(JSON.stringify(this.usuario)).uid;
-        //             this.userEmail = JSON.parse(JSON.stringify(this.usuario)).email;
-        //             this.userPhoto = JSON.parse(JSON.stringify(this.usuario)).photoURL;
-        //             this.userName = JSON.parse(JSON.stringify(this.usuario)).displayName;
-        //             console.log(this.user)
-        //         }
-        //         else {
-        //             this.usuariouser = null;
-        //             this.currentUserID = "";
-        //             this.userEmail = "";
-        //             this.userPhoto = "";
-        //             this.userName = "";
-        //         }
-        //     })
-        // },
+        
 
     }
 }).mount('#app')

@@ -41,7 +41,7 @@ footer {
 }
 
 main{
-    margin-bottom: 8vh;
+    margin-bottom: 5vh;
 }
 
 .homeIndicator {
@@ -231,7 +231,7 @@ overflow: auto;
     background-color: black;
     color: white;
     width: 100vw;
-    min-height: 83vh;
+    min-height: 86vh;
     display: flex;
     flex-direction: column;
 
@@ -244,11 +244,13 @@ overflow: auto;
 
 .portada{
 
-    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     margin-bottom: 20px;
 }
 
- .inf-c{
+.inf-c{
     margin-bottom: 20px;
  }
 
