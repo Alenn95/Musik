@@ -61,15 +61,29 @@
         </header>
         <main>
 
-            <section v-show="pagina == 'Musik'">
+            <section v-show="pagina == 'Wave Sound'">
                 <div class="d-flex flex-column align-items-center justufy-content-center bg-dark">
-                    <h1 class="letra">¡Bienvenido!</h1>  
-                    <p class="letra">{{userName}}</p>
-                    <hr>
-                    <p class="letraChicaDisabled">Top 50 of this week</p>
+                    <div class="container-sm home">
+                        <p id='head1' class='headerx'>¡Welcome to Wave Sound!</p>
+                        <p id='head2' class='headerx'>All your music</p>
+                        <p id='head3' class='headerx'>Here and now</p>
+                        <p id='head4' class='headerx'>Just</p>
+                        <p id='head5' class='headerx'>For you</p>
+                        <div class='light x1'></div>
+                        <div class='light x2'></div>
+                        <div class='light x3'></div>
+                        <div class='light x4'></div>
+                        <div class='light x5'></div>
+                        <div class='light x6'></div>
+                        <div class='light x7'></div>
+                        <div class='light x8'></div>
+                        <div class='light x9'></div>
+                    </div>
+                    
                     <div class="container-sm ">
+                        <p class="letra">Top of this week</p>
                         <div v-for="item in favorites"
-                        class="d-flex flex-row w-100 w-lg-50 align-items-center justify-content-between p-2">
+                            class="d-flex flex-row w-100 w-lg-50 align-items-center justify-content-between p-2">
                             <img class="w-25" v-bind:src="item.albumOfTrack.coverArt.sources[0].url" alt="">
                             <div class="d-flex flex-column  justify-content-start">
                                 <p class="letra">{{item.name}}</p>
@@ -81,12 +95,24 @@
                                 <span class="material-icons md-light md-24">
                                     more_vert
                                 </span>
-                            </div>                        
+                            </div>
                         </div>
                     </div>
- 
-                    
+                    <div class="container-sm ">
+                        <div class="d-flex flex-row w-100 w-lg-50 align-items-center justify-content-evenly scrollItems">
+                            <div v-for="item in dataBase" class="card-body d-flex flex-row align-items-center justify-content-center">
+                                <img class="w-25 d-block" v-bind:src="item.albumOfTrack.coverArt.sources[0].url" alt="">
+                                <div class="d-flex flex-column align-items-center justify-content-center">
+                                    <p class="letraChicaDisabled"> {{item.artists.items[0].profile.name}}</p>
+                                    <p class="letraChicaDisabled"> {{item.name}}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+                {{getData}}
+                {{verifyFavorites}}
+                {{checkDataBase}}
             </section>
 
             <section v-show="pagina == 'Profile'" class="perfil">
@@ -122,8 +148,7 @@
                                 Enter
                             </button>
                         </div>
-                        {{getData}}
-                        {{verifyFavorites}}
+
                     </div>
                 </div>
                 <div v-show="currentUserID" class="perfilog">
@@ -177,10 +202,12 @@
                         </div>
 
                         <h3 class="letra">Tus ultimas escuchas</h3>
-
+                        <button class="btn btn-lg btn-dark" id="quickstart-sign-in-google" v-on:click="toggleSignIn">
+                            Log-out
+                        </button>
                         <div class="container-sm ">
                             <div v-for="item in favorites"
-                            class="d-flex flex-row w-100 w-lg-50 align-items-center justify-content-between p-2">
+                                class="d-flex flex-row w-100 w-lg-50 align-items-center justify-content-between p-2">
                                 <img class="w-25" v-bind:src="item.albumOfTrack.coverArt.sources[0].url" alt="">
                                 <div class="d-flex flex-column  justify-content-start">
                                     <p class="letra">{{item.name}}</p>
@@ -192,25 +219,24 @@
                                     <span class="material-icons md-light md-24">
                                         more_vert
                                     </span>
-                                </div>                        
+                                </div>
                             </div>
-                            
-                        </div>  
+
+                        </div>
                     </div>
-                    <button class="btn btn-lg btn-dark" id="quickstart-sign-in-google" v-on:click="toggleSignIn">
-                        Log-out
-                    </button>
+
                 </div>
             </section>
             <section v-show="pagina == 'Your Favorites'">
-                <div v-if="favorites.length == 0" class="d-flex flex-column justify-content-center align-items-center bg-dark busqueda">
+                <div v-if="favorites.length == 0"
+                    class="d-flex flex-column justify-content-center align-items-center bg-dark busqueda">
                     <h1 class="letra">¡Nothing here!</h1>
                     <p class="letraChicaDisabled">Go to search section or recognize to add songs to your favorites</p>
                 </div>
                 <div v-if="favorites.length > 0" class="d-flex flex-column justify-content-start bg-dark busqueda">
                     <div class="container-sm ">
                         <div v-for="item in favorites"
-                        class="d-flex flex-row w-100 w-lg-50 align-items-center justify-content-between p-2">
+                            class="d-flex flex-row w-100 w-lg-50 align-items-center justify-content-between p-2">
                             <img class="w-25" v-bind:src="item.albumOfTrack.coverArt.sources[0].url" alt="">
                             <div class="d-flex flex-column  justify-content-start">
                                 <p class="letra">{{item.name}}</p>
@@ -222,11 +248,12 @@
                                 <span class="material-icons md-light md-24">
                                     more_vert
                                 </span>
-                            </div>                        
+                            </div>
                         </div>
                     </div>
                 </div>
             </section>
+
             <section v-show="pagina == 'Recognition'" class="sectionRecognize">
 
                 <div class="d-flex flex-wrap justify-content-center">
@@ -290,10 +317,10 @@
                         </div>
                     </div> -->
 
-                
+
                     <div class="container-sm ">
                         <div v-for="item in tracks"
-                        class="d-flex flex-row w-100 w-lg-50 align-items-center justify-content-between p-2">
+                            class="d-flex flex-row w-100 w-lg-50 align-items-center justify-content-between p-2">
                             <img class="w-25" v-bind:src="item.data.albumOfTrack.coverArt.sources[0].url" alt="">
                             <div class="d-flex flex-column  justify-content-start">
                                 <p class="letra">{{item.data.name}}</p>
@@ -308,10 +335,10 @@
                                 <span class="material-icons md-light md-24">
                                     more_vert
                                 </span>
-                            </div>                        
+                            </div>
                         </div>
                     </div>
-                    
+
 
                 </div>
 
@@ -329,7 +356,7 @@
                         <!-- <a href="">
                             <img src="./img/icons/tapbar/Active=No.png" alt="">
                         </a> -->
-                        <span v-on:click="pagina = 'Musik'" class="material-icons md-light md-24 md-inactive">
+                        <span v-on:click="pagina = 'Wave Sound'" class="material-icons md-light md-24 md-inactive">
                             home
                         </span>
                     </div>

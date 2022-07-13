@@ -1,7 +1,7 @@
 const app = Vue.createApp({
     data() {
         return {
-            pagina: "Musik",
+            pagina: "Wave Sound",
             recording: "off",
             audioApiResponse: "",
             spotifyLink: "",
@@ -14,6 +14,7 @@ const app = Vue.createApp({
             userPhoto: "",
             userName: "",
             favorites: [],
+            dataBase: [],
         }
     },
 
@@ -121,7 +122,7 @@ const app = Vue.createApp({
             });
 
 
-            
+
             // this.player = player
 
             // // Ready
@@ -338,6 +339,15 @@ const app = Vue.createApp({
             firebase.database().ref().update(update);
         },
 
+
+        addFavorites2: function (song) {
+            let cancion = song
+            let newCommentKey = firebase.database().ref().child('dataBaseTest/' + this.currentUserID + '/').push().key;
+            var update = {};
+            update['dataBaseTest/' + this.currentUserID + '/' + newCommentKey] = cancion;
+            firebase.database().ref().update(update);
+        },
+
     },
 
     computed: {
@@ -366,14 +376,25 @@ const app = Vue.createApp({
 
         verifyFavorites: function () {
             firebase.database().ref('Favoritos/' + this.currentUserID + '/').on("child_added", (data) => {
-             
-              if (data.val().data != undefined){
-                let favorito = data.val().data
-                this.favorites = [...this.favorites, favorito];
-              }
-             
+
+                if (data.val().data != undefined) {
+                    let favorito = data.val().data
+                    this.favorites = [...this.favorites, favorito];
+                }
+
             });
-          },
+        },
+
+        checkDataBase: function () {
+            firebase.database().ref('dataBaseTest/' + this.currentUserID + '/').on("child_added", (data) => {
+
+                if (data.val().data != undefined) {
+                    let dataBaseT = data.val().data
+                    this.dataBase = [...this.dataBase, dataBaseT];
+                }
+
+            });
+        },
 
 
 
