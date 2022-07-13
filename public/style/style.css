@@ -68,6 +68,9 @@ hr {
     background: #FFFFFF;
     border-radius: 100px;
 }
+.itemHome{
+    z-index:2;
+}
 
 /* Rules for sizing the icon. */
 .material-icons.md-18 {
@@ -132,7 +135,7 @@ hr {
     border-color: beige;
     height: 40vh;
     background-color: rgba(27, 27, 27, 0.3);
-    ;
+    
 }
 
 .redes {
