@@ -79,13 +79,13 @@
                         <div class='light x8'></div>
                         <div class='light x9'></div>
                     </div>
-                    
+
                     <div class="container-sm ">
                         <p class="letra">Top of this week</p>
                         <div v-for="item in favorites"
                             class="d-flex flex-row w-100 w-lg-50 align-items-center justify-content-between p-2">
                             <img class="w-25" v-bind:src="item.albumOfTrack.coverArt.sources[0].url" alt="">
-                            <div class="d-flex flex-column  justify-content-start">
+                            <div class="d-flex flex-column justify-content-start">
                                 <p class="letra">{{item.name}}</p>
                                 <p class="letraChicaDisabled">
                                     {{item.artists.items[0].profile.name}}
@@ -98,21 +98,21 @@
                             </div>
                         </div>
                     </div>
-                    <div class="container-sm ">
-                        <div class="d-flex flex-row w-100 w-lg-50 align-items-center justify-content-evenly scrollItems">
-                            <div v-for="item in dataBase" class="card-body d-flex flex-row align-items-center justify-content-center">
-                                <img class="w-25 d-block" v-bind:src="item.albumOfTrack.coverArt.sources[0].url" alt="">
-                                <div class="d-flex flex-column align-items-center justify-content-center">
-                                    <p class="letraChicaDisabled"> {{item.artists.items[0].profile.name}}</p>
-                                    <p class="letraChicaDisabled"> {{item.name}}</p>
-                                </div>
+                    <div class="container-sm">
+                        <p class="letra">Trending topics</p>
+                        <div class="d-flex flex-row w-lg-50 align-items-center justify-content-evenly scrollItems">
+                            <div v-for="item in dataBase"
+                                class="d-flex flex-wrap align-items-center justify-content-center scrollItemsIn">
+                                <img class="w-100 imgCard" v-bind:src="item.albumOfTrack.coverArt.sources[0].url"
+                                    alt="">
+                                <p class="letraChicaDisabled text-center d-block"> {{item.name}}</p>
                             </div>
                         </div>
                     </div>
-                </div>
-                {{getData}}
-                {{verifyFavorites}}
-                {{checkDataBase}}
+
+                    {{getData}}
+                    {{verifyFavorites}}
+                    {{checkDataBase}}
             </section>
 
             <section v-show="pagina == 'Profile'" class="perfil">
@@ -154,6 +154,10 @@
                 <div v-show="currentUserID" class="perfilog">
                     <div class="d-flex flex-column justify-content-start bg-dark">
                         <div class="d-flex flex-column justify-content-start align-items-center">
+                            <button class="btn btn-lg btn-dark" id="quickstart-sign-in-google"
+                                v-on:click="toggleSignIn">
+                                Log-out
+                            </button>
                             <div class="p-2 d-flex flex-row justify-content-between w-100">
                                 <span class="material-icons md-light md-24">
                                     favorite
@@ -202,9 +206,7 @@
                         </div>
 
                         <h3 class="letra">Tus ultimas escuchas</h3>
-                        <button class="btn btn-lg btn-dark" id="quickstart-sign-in-google" v-on:click="toggleSignIn">
-                            Log-out
-                        </button>
+
                         <div class="container-sm ">
                             <div v-for="item in favorites"
                                 class="d-flex flex-row w-100 w-lg-50 align-items-center justify-content-between p-2">
