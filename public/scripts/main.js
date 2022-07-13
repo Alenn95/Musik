@@ -370,47 +370,47 @@ const app = Vue.createApp({
 
 
 
-        // getData: function () {
-        //     firebase.auth().onAuthStateChanged((user) => {
-        //         if (user) {
-        //             this.user = user;
-        //             this.currentUserID = JSON.parse(JSON.stringify(this.user)).uid;
-        //             this.userEmail = JSON.parse(JSON.stringify(this.user)).email;
-        //             this.userPhoto = JSON.parse(JSON.stringify(this.user)).photoURL;
-        //             this.userName = JSON.parse(JSON.stringify(this.user)).displayName;
-        //             console.log(this.user)
-        //         }
-        //         else {
-        //             this.user = { photoURL: "https://cdn.icon-icons.com/icons2/1378/PNG/512/avatardefault_92824.png" };
-        //             this.currentUserID = "";
-        //             this.userEmail = "";
-        //             this.userPhoto = "";
-        //             this.userName = "";
-        //         }
-        //     })
-        // },
+        getData: function () {
+            firebase.auth().onAuthStateChanged((user) => {
+                if (user) {
+                    this.user = user;
+                    this.currentUserID = JSON.parse(JSON.stringify(this.user)).uid;
+                    this.userEmail = JSON.parse(JSON.stringify(this.user)).email;
+                    this.userPhoto = JSON.parse(JSON.stringify(this.user)).photoURL;
+                    this.userName = JSON.parse(JSON.stringify(this.user)).displayName;
+                    console.log(this.user)
+                }
+                else {
+                    this.user = { photoURL: "https://cdn.icon-icons.com/icons2/1378/PNG/512/avatardefault_92824.png" };
+                    this.currentUserID = "";
+                    this.userEmail = "";
+                    this.userPhoto = "";
+                    this.userName = "";
+                }
+            })
+        },
 
-        // verifyFavorites: function () {
-        //     firebase.database().ref('Favoritos/' + this.currentUserID + '/').on("child_added", (data) => {
+        verifyFavorites: function () {
+            firebase.database().ref('Favoritos/' + this.currentUserID + '/').on("child_added", (data) => {
 
-        //         if (data.val().data != undefined) {
-        //             let favorito = data.val().data
-        //             this.favorites = [...this.favorites, favorito];
-        //         }
+                if (data.val().data != undefined) {
+                    let favorito = data.val().data
+                    this.favorites = [...this.favorites, favorito];
+                }
 
-        //     });
-        // },
+            });
+        },
 
-        // checkDataBase: function () {
-        //     firebase.database().ref('dataBaseTest/' + this.currentUserID + '/').on("child_added", (data) => {
+        checkDataBase: function () {
+            firebase.database().ref('dataBaseTest/' + this.currentUserID + '/').on("child_added", (data) => {
 
-        //         if (data.val().data != undefined) {
-        //             let dataBaseT = data.val().data
-        //             this.dataBase = [...this.dataBase, dataBaseT];
-        //         }
+                if (data.val().data != undefined) {
+                    let dataBaseT = data.val().data
+                    this.dataBase = [...this.dataBase, dataBaseT];
+                }
 
-        //     });
-        // },
+            });
+        },
 
 
 
