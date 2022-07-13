@@ -532,7 +532,7 @@ grabarAudio = async () => {
         audioRecordedBase64 = res.substring(res.indexOf(',') + 1)
         app.recording = "searching"
         //recognizeRequest()
-        // searchRequest() //Esta se usa
+        searchRequest() //Esta se usa
     });
 
     audioRecorded = audio
