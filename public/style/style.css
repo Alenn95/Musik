@@ -40,14 +40,6 @@ header {
     height: 4vh;
 }
 
-footer {
-    height: 8vh;
-}
-
-main {
-    margin-bottom: 8vh;
-}
-
 .home {
     margin: 0;
     height: 50vh;
@@ -791,4 +783,103 @@ hr {
     -moz-transform: translate(95vw, 90vh);
     transform: translate(95vw, 90vh);
     transform: translate(95vw, 90vh);
+}
+
+/* Reproductor */
+.cancion-main{
+    padding: 40px 40px;
+    background-color: black;
+    color: white;
+    width: 100vw;
+    min-height: 86vh;
+    display: flex;
+    flex-direction: column;
+
+    
+}
+
+.cancion-main p{
+    margin: 0;
+}
+
+.portada{
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.inf-c{
+    margin-bottom: 20px;
+ }
+
+.titulo{
+    font-size: 1.2rem;
+}
+
+.artista{
+    color: rgb(82, 82, 82);
+    font-size: 1rem;
+}
+
+.progress{
+    height: 5px;
+    margin-bottom: 5px;
+}
+
+.time{
+    color: rgb(82, 82, 82);
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.6rem;
+    font-weight: 600;
+}
+
+.play-c{
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+.play-c i{
+        font-size: 60px;
+    }
+
+.mini-rep{
+    width: 100%;
+    height: 60px;
+    background-color: rgb(32, 32, 32);
+    display: flex;
+}
+
+.mini-rep img{
+    max-height: 100%;
+}
+.mini-rep p{
+    display: flex;
+    align-items: center;
+    flex: 1;
+    padding: 0 10px;
+    margin: 0;
+    color: white;
+
+}
+.mini-rep i {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 40px;
+    padding: 20px;
+    color: white;
+}
+
+.progress{
+    background-color: rgb(66, 66, 66);
+}
+
+.barra{
+    background-color: white;
 }

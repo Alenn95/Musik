@@ -15,6 +15,18 @@ const app = Vue.createApp({
             userName: "",
             favorites: [],
             dataBase: [],
+
+            // Reproductor
+            portada: "",
+            nombre: "",
+            artistas: "",
+
+            paused:"",
+            position:"",
+            duration:"",
+            updateTime:"",
+
+            livePosition:"0:00",
         }
     },
 
@@ -50,117 +62,87 @@ const app = Vue.createApp({
                 .catch(err => console.error(err));
 
         })
-
-
-        // window.onSpotifyWebPlaybackSDKReady = () => {
-        //     const token = 'BQBg0fs10nH-QPe8-pw9N94AomUGp-tcZWfcEmpFTWHoaton7xFxmsZOoBKv0iDUlDpWzxTdoGWfbrRxdZ1y0pJ9YzQZW6YFZ3g9hKMtRdaDkhpY3R9ZZHfrQFI8oiGtBClMVp2LKMoLa8PSoW-YP2EdFiTtff9Gl6ow1cFyKJF-R-tb4gW8U0_96daPWpJ87q7rg72rQ4H7Svo7EDdEVHbRukw';
-        //     const player = new Spotify.Player({
-        //         name: 'Web Playback SDK Quick Start Player',
-        //         getOAuthToken: cb => { cb(token); },
-        //         volume: 0.5
-        //     });
-
-        //     this.player = player
-
-        //     // Ready
-        //     player.addListener('ready', ({ device_id }) => {
-        //         console.log('Ready with Device ID', device_id);
-        //         this.device_id = device_id
-
-        //     });
-
-        //     // Not Ready
-        //     player.addListener('not_ready', ({ device_id }) => {
-        //         console.log('Device ID has gone offline', device_id);
-        //     });
-
-        //     player.addListener('initialization_error', ({ message }) => {
-        //         console.error(message);
-        //     });
-
-        //     player.addListener('authentication_error', ({ message }) => {
-        //         console.error(message);
-        //     });
-
-        //     player.addListener('account_error', ({ message }) => {
-        //         console.error(message);
-        //     });
-
-        //     document.getElementById('togglePlay').onclick = function() {
-        //       player.togglePlay();
-        //     };
-
-
-
-        //     player.connect();
-        // };
-
-        window.onload = function () {
-            firebase.auth().onAuthStateChanged((user) => {
-                if (user) {
-                    var displayName = user.displayName;
-                    var email = user.email;
-                    var emailVerified = user.emailVerified;
-                    var photoURL = user.photoURL;
-                    var isAnonymous = user.isAnonymous;
-                    var uid = user.uid;
-                    var providerData = user.providerData;
-                    document.getElementById('quickstart-sign-in-google');
-                    document.getElementById('quickstart-sign-in').textContent = 'Sign out';
-
-                    // firebase.database().ref('Favoritos/' + this.currentUserID + '/').on("child_added", (data) => {
-                    //     let favorito = data.val()
-                    //     this.favorites = [...this.favorites, favorito];
-                    // });
-
-                } else {
-                    document.getElementById('quickstart-sign-in-google');
-                    document.getElementById('quickstart-sign-in');
-                }
-                document.getElementById('quickstart-sign-in-google').disabled = false;
-                document.getElementById('quickstart-sign-in').disabled = false;
+        window.onSpotifyWebPlaybackSDKReady = () => {
+            const token = 'BQAteTQ3T65m2pq1gWQOyt_ZkYB6EyzAnlGiXV1b4d7HL0JIz6kAdRS7sz8cNL3HZcC9IRDGp255qH7I_eZ5idky3B59SPdkPCBRJ62ZTPcgqKpW4YFeg3YBiTy2gmsG44AGXCz2GaH4Q8a50qTLPYmyriKPgR27K4gVi5CCXD08o3sFr7UFyWZQl-EEGbinetoTcxY3CY8xlF2C9zZwB6usIv8';
+            const player = new Spotify.Player({
+                name: 'Web Playback SDK Quick Start Player',
+                getOAuthToken: cb => { cb(token); },
+                volume: 0.5
             });
 
+            this.player = player
 
+            // Ready
+            player.addListener('ready', ({ device_id }) => {
+                console.log('Ready with Device ID', device_id);
+                this.device_id = device_id;
 
-            // this.player = player
+            });
 
-            // // Ready
-            // player.addListener('ready', ({ device_id }) => {
-            //     console.log('Ready with Device ID', device_id);
-            //     this.device_id = device_id
+            // Not Ready
+            player.addListener('not_ready', ({ device_id }) => {
+                console.log('Device ID has gone offline', device_id);
+            });
 
-            // });
+            player.addListener('initialization_error', ({ message }) => {
+                console.error(message);
+            });
 
-            // // Not Ready
-            // player.addListener('not_ready', ({ device_id }) => {
-            //     console.log('Device ID has gone offline', device_id);
-            // });
+            player.addListener('authentication_error', ({ message }) => {
+                console.error(message);
+            });
 
-            // player.addListener('initialization_error', ({ message }) => {
-            //     console.error(message);
-            // });
+            player.addListener('account_error', ({ message }) => {
+                console.error(message);
+            });
 
-            // player.addListener('authentication_error', ({ message }) => {
-            //     console.error(message);
-            // });
+            player.addListener('player_state_changed', ({
+                position,
+                duration,
+                paused,    
+            }) => {
+                
+                console.log('Duration of Song', duration);
+                console.log('prueba de pausa', paused);
+                this.paused = paused
+                this.position = position/1000
+                this.duration = duration/1000
+                this.updateTime = performance.now()
 
-            // player.addListener('account_error', ({ message }) => {
-            //     console.error(message);
-            // });
-
-            // document.getElementById('togglePlay').onclick = function () {
-            //     player.togglePlay();
-            // };
-
-
-
-            // player.connect();
-
-
-
-
+            });
+            player.connect();
         };
+
+        // window.onload = function () {
+        //     firebase.auth().onAuthStateChanged((user) => {
+        //         if (user) {
+        //             var displayName = user.displayName;
+        //             var email = user.email;
+        //             var emailVerified = user.emailVerified;
+        //             var photoURL = user.photoURL;
+        //             var isAnonymous = user.isAnonymous;
+        //             var uid = user.uid;
+        //             var providerData = user.providerData;
+        //             document.getElementById('quickstart-sign-in-google');
+        //             document.getElementById('quickstart-sign-in').textContent = 'Sign out';
+
+        //             // firebase.database().ref('Favoritos/' + this.currentUserID + '/').on("child_added", (data) => {
+        //             //     let favorito = data.val()
+        //             //     this.favorites = [...this.favorites, favorito];
+        //             // });
+
+        //         } else {
+        //             document.getElementById('quickstart-sign-in-google');
+        //             document.getElementById('quickstart-sign-in');
+        //         }
+        //         document.getElementById('quickstart-sign-in-google').disabled = false;
+        //         document.getElementById('quickstart-sign-in').disabled = false;
+        //     });
+
+
+
+
+        // };
 
 
 
@@ -226,6 +208,40 @@ const app = Vue.createApp({
                     },
                 });
             });
+
+            let bar = document.getElementById('proBar')
+
+            let timeLoop = window.setInterval(()=>{
+                this.livePosition = this.getStatePosition()
+                
+                let positionBar = this.livePosition*100/this.duration
+                
+                bar.style.width = positionBar.toFixed(2).toString() + "%"
+            }
+            , 1000);
+        },
+
+        pause:function(){
+            this.player.togglePlay();
+        },
+
+        getStatePosition:function(){
+            if (this.paused) {
+               return this.position;
+            }
+            let position = this.position + (performance.now() - this.updateTime) / 1000;
+            return position > this.duration ? this.duration : position;
+        },
+    
+
+        reproduce: function(a,imagen,titulo,artista){
+            this.pagina = 'cancion'
+            this.play(a);
+            this.portada = imagen;
+            this.nombre = titulo;
+            this.artistas = artista
+
+            
         },
 
         toggleSignIn: function () {
@@ -354,47 +370,47 @@ const app = Vue.createApp({
 
 
 
-        getData: function () {
-            firebase.auth().onAuthStateChanged((user) => {
-                if (user) {
-                    this.user = user;
-                    this.currentUserID = JSON.parse(JSON.stringify(this.user)).uid;
-                    this.userEmail = JSON.parse(JSON.stringify(this.user)).email;
-                    this.userPhoto = JSON.parse(JSON.stringify(this.user)).photoURL;
-                    this.userName = JSON.parse(JSON.stringify(this.user)).displayName;
-                    console.log(this.user)
-                }
-                else {
-                    this.user = { photoURL: "https://cdn.icon-icons.com/icons2/1378/PNG/512/avatardefault_92824.png" };
-                    this.currentUserID = "";
-                    this.userEmail = "";
-                    this.userPhoto = "";
-                    this.userName = "";
-                }
-            })
-        },
+        // getData: function () {
+        //     firebase.auth().onAuthStateChanged((user) => {
+        //         if (user) {
+        //             this.user = user;
+        //             this.currentUserID = JSON.parse(JSON.stringify(this.user)).uid;
+        //             this.userEmail = JSON.parse(JSON.stringify(this.user)).email;
+        //             this.userPhoto = JSON.parse(JSON.stringify(this.user)).photoURL;
+        //             this.userName = JSON.parse(JSON.stringify(this.user)).displayName;
+        //             console.log(this.user)
+        //         }
+        //         else {
+        //             this.user = { photoURL: "https://cdn.icon-icons.com/icons2/1378/PNG/512/avatardefault_92824.png" };
+        //             this.currentUserID = "";
+        //             this.userEmail = "";
+        //             this.userPhoto = "";
+        //             this.userName = "";
+        //         }
+        //     })
+        // },
 
-        verifyFavorites: function () {
-            firebase.database().ref('Favoritos/' + this.currentUserID + '/').on("child_added", (data) => {
+        // verifyFavorites: function () {
+        //     firebase.database().ref('Favoritos/' + this.currentUserID + '/').on("child_added", (data) => {
 
-                if (data.val().data != undefined) {
-                    let favorito = data.val().data
-                    this.favorites = [...this.favorites, favorito];
-                }
+        //         if (data.val().data != undefined) {
+        //             let favorito = data.val().data
+        //             this.favorites = [...this.favorites, favorito];
+        //         }
 
-            });
-        },
+        //     });
+        // },
 
-        checkDataBase: function () {
-            firebase.database().ref('dataBaseTest/' + this.currentUserID + '/').on("child_added", (data) => {
+        // checkDataBase: function () {
+        //     firebase.database().ref('dataBaseTest/' + this.currentUserID + '/').on("child_added", (data) => {
 
-                if (data.val().data != undefined) {
-                    let dataBaseT = data.val().data
-                    this.dataBase = [...this.dataBase, dataBaseT];
-                }
+        //         if (data.val().data != undefined) {
+        //             let dataBaseT = data.val().data
+        //             this.dataBase = [...this.dataBase, dataBaseT];
+        //         }
 
-            });
-        },
+        //     });
+        // },
 
 
 
