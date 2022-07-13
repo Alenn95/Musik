@@ -113,36 +113,36 @@ const app = Vue.createApp({
             player.connect();
         };
 
-        // window.onload = function () {
-        //     firebase.auth().onAuthStateChanged((user) => {
-        //         if (user) {
-        //             var displayName = user.displayName;
-        //             var email = user.email;
-        //             var emailVerified = user.emailVerified;
-        //             var photoURL = user.photoURL;
-        //             var isAnonymous = user.isAnonymous;
-        //             var uid = user.uid;
-        //             var providerData = user.providerData;
-        //             document.getElementById('quickstart-sign-in-google');
-        //             document.getElementById('quickstart-sign-in').textContent = 'Sign out';
+        window.onload = function () {
+            firebase.auth().onAuthStateChanged((user) => {
+                if (user) {
+                    var displayName = user.displayName;
+                    var email = user.email;
+                    var emailVerified = user.emailVerified;
+                    var photoURL = user.photoURL;
+                    var isAnonymous = user.isAnonymous;
+                    var uid = user.uid;
+                    var providerData = user.providerData;
+                    document.getElementById('quickstart-sign-in-google');
+                    document.getElementById('quickstart-sign-in').textContent = 'Sign out';
 
-        //             // firebase.database().ref('Favoritos/' + this.currentUserID + '/').on("child_added", (data) => {
-        //             //     let favorito = data.val()
-        //             //     this.favorites = [...this.favorites, favorito];
-        //             // });
+                    // firebase.database().ref('Favoritos/' + this.currentUserID + '/').on("child_added", (data) => {
+                    //     let favorito = data.val()
+                    //     this.favorites = [...this.favorites, favorito];
+                    // });
 
-        //         } else {
-        //             document.getElementById('quickstart-sign-in-google');
-        //             document.getElementById('quickstart-sign-in');
-        //         }
-        //         document.getElementById('quickstart-sign-in-google').disabled = false;
-        //         document.getElementById('quickstart-sign-in').disabled = false;
-        //     });
-
-
+                } else {
+                    document.getElementById('quickstart-sign-in-google');
+                    document.getElementById('quickstart-sign-in');
+                }
+                document.getElementById('quickstart-sign-in-google').disabled = false;
+                document.getElementById('quickstart-sign-in').disabled = false;
+            });
 
 
-        // };
+
+
+        };
 
 
 
