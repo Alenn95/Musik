@@ -275,7 +275,7 @@ hr {
 
 .sectionSearch {
     background-color: black;
-    min-height: 84vh;
+    min-height: 90vh;
 }
 
 .backSearchBar {
@@ -882,4 +882,16 @@ hr {
 
 .barra{
     background-color: white;
+}
+
+.homeS{
+    min-height: 90vh;
+}
+
+main{
+    padding-bottom: 46px;
+}
+.fixFav{
+    flex: 1;
+    margin-left: 20px;
 }

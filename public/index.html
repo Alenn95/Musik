@@ -86,9 +86,9 @@
                     <div class="container-sm ">
                         <p class="letra">Top of this week</p>
                         <div v-for="item in favorites"
-                            class="d-flex flex-row w-100 w-lg-50 align-items-center justify-content-between p-2">
+                            class="d-flex flex-row w-100 w-lg-50 align-items-center justify-content-between p-2 ">
                             <img class="w-25" v-bind:src="item.albumOfTrack.coverArt.sources[0].url" alt="">
-                            <div class="d-flex flex-column justify-content-start">
+                            <div class="d-flex flex-column justify-content-start fixFav" >
                                 <p class="letra">{{item.name}}</p>
                                 <p class="letraChicaDisabled">
                                     {{item.artists.items[0].profile.name}}
@@ -214,7 +214,7 @@
                             <div v-for="item in favorites"
                                 class="d-flex flex-row w-100 w-lg-50 align-items-center justify-content-between p-2">
                                 <img class="w-25" v-bind:src="item.albumOfTrack.coverArt.sources[0].url" alt="">
-                                <div class="d-flex flex-column  justify-content-start">
+                                <div class="d-flex flex-column  justify-content-start fixFav">
                                     <p class="letra">{{item.name}}</p>
                                     <p class="letraChicaDisabled">
                                         {{item.artists.items[0].profile.name}}
@@ -259,7 +259,7 @@
                 </div>
             </section>
 
-            <section v-show="pagina == 'Recognition'" class="sectionRecognize">
+            <section v-show="pagina == 'Recognition'" class="sectionRecognize homeS">
 
                 <div class="d-flex flex-wrap justify-content-center">
 
@@ -327,8 +327,8 @@
                         <div v-for="item in tracks"
                             class="d-flex flex-row w-100 w-lg-50 align-items-center justify-content-between p-2" @click= "reproduce({playerInstance: player,spotify_uri: item.data.uri,}, item.data.albumOfTrack.coverArt.sources[0].url, item.data.name, item.data.artists.items)">
                             <img class="w-25" v-bind:src="item.data.albumOfTrack.coverArt.sources[0].url" alt="">
-                            <div class="d-flex flex-column  justify-content-start">
-                                <p class="letra">{{item.data.name}}</p>
+                            <div class="d-flex flex-column  justify-content-start fixFav">
+                                <p class="letra ">{{item.data.name}}</p>
                                 <p class="letraChicaDisabled">
                                     <!-- <p v-for="a in item.data.artists.items">{{a.profile.name}}</p> -->
                                 </p>
