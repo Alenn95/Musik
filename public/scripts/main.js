@@ -63,7 +63,7 @@ const app = Vue.createApp({
 
         })
         window.onSpotifyWebPlaybackSDKReady = () => {
-            const token = 'BQCaxlko3Dg_YOYTvAJpKsuSbR9LiQ9KnyeS_YyoQNK4q5ldfdzMAprd5Q6EN33ncRD3RG5z_KBoFxBXeSqVGdf0nQO5JmgFttTvbNyupWUCJmfp7hoqQpnG_9JAbahvs7yfCeNt_sIf_owFguzOx6wLb8AfpilPC0UAoLCo8MFYSYLIaYldNHV_sEpp6AYz6u_m7JUctw3ARaTRS1EP8bqro2s';
+            const token = 'BQACaePPzb9BbE1yT728n5EhFV6yzooLLWDcddHbVSdTh_OsticIyFGirii6kLjfUmwNVdqkBGexv0SOy70Gaj3w7u3WqAzoB6kFA-VO159D97gPJXmDMuGq27UbIK0oxXCEr4g_2CfLycHbPut-SaYn6Fyf4Q3e1qG9hEL47iSdLCbpckbXAqmZwvp0D1CkBBP_w1ns1-WMpSThTwCtIM6pDX8';
             const player = new Spotify.Player({
                 name: 'Web Playback SDK Quick Start Player',
                 getOAuthToken: cb => { cb(token); },
@@ -428,7 +428,7 @@ searchRequest = async () => {
         },
 
         body: JSON.stringify({
-            api_token: "31499d3a2ab881cd488be239166ecb3a",
+            api_token: "7e69f55e9b62ba946cd72290bff81cbe",
             //url: "https://audd.tech/example.mp3",
             audio: audioRecordedBase64,
             return: "apple_music,spotify"
@@ -456,7 +456,7 @@ recognizeRequest = async () => {
         },
 
         body: JSON.stringify({
-            api_token: "31499d3a2ab881cd488be239166ecb3a",
+            api_token: "7e69f55e9b62ba946cd72290bff81cbe",
             audio: audioRecordedBase64
         })
     });
@@ -531,7 +531,7 @@ grabarAudio = async () => {
     blobToBase64(audioFile).then(res => {
         audioRecordedBase64 = res.substring(res.indexOf(',') + 1)
         app.recording = "searching"
-        //recognizeRequest()
+        recognizeRequest()
         searchRequest() //Esta se usa
     });
 
