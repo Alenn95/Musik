@@ -64,7 +64,7 @@
         </header>
         <main>
 
-            <section v-show="pagina == 'Wave Sound'" >
+            <section v-show="pagina == 'Wave Sound'">
                 <div class="d-flex flex-column align-items-center justufy-content-center bg-dark">
                     <div class="container-sm home">
                         <p id='head1' class='headerx'>¡Welcome to Wave Sound!</p>
@@ -88,7 +88,7 @@
                         <div v-for="item in favorites"
                             class="d-flex flex-row w-100 w-lg-50 align-items-center justify-content-between p-2 ">
                             <img class="w-25" v-bind:src="item.albumOfTrack.coverArt.sources[0].url" alt="">
-                            <div class="d-flex flex-column justify-content-start fixFav" >
+                            <div class="d-flex flex-column justify-content-start fixFav">
                                 <p class="letra">{{item.name}}</p>
                                 <p class="letraChicaDisabled">
                                     {{item.artists.items[0].profile.name}}
@@ -304,9 +304,8 @@
                                 </span>
                             </button>
                         </div>
-                        <input type="text" id="search"
-                            class="form-control border-0 searchBar backSearchBar" placeholder="Search for songs"
-                            aria-label="" aria-describedby="basic-addon1">
+                        <input type="text" id="search" class="form-control border-0 searchBar backSearchBar"
+                            placeholder="Search for songs" aria-label="" aria-describedby="basic-addon1">
                     </div>
                 </div>
 
@@ -325,7 +324,8 @@
 
                     <div class="container-sm ">
                         <div v-for="item in tracks"
-                            class="d-flex flex-row w-100 w-lg-50 align-items-center justify-content-between p-2" @click= "reproduce({playerInstance: player,spotify_uri: item.data.uri,}, item.data.albumOfTrack.coverArt.sources[0].url, item.data.name, item.data.artists.items)">
+                            class="d-flex flex-row w-100 w-lg-50 align-items-center justify-content-between p-2"
+                            @click="reproduce({playerInstance: player,spotify_uri: item.data.uri,}, item.data.albumOfTrack.coverArt.sources[0].url, item.data.name, item.data.artists.items)">
                             <img class="w-25" v-bind:src="item.data.albumOfTrack.coverArt.sources[0].url" alt="">
                             <div class="d-flex flex-column  justify-content-start fixFav">
                                 <p class="letra ">{{item.data.name}}</p>
@@ -360,11 +360,16 @@
                         <p class="artista" v-for="a in artistas">{{a.profile.name}}</p>
                     </div>
                     <div class="progress">
-                        <div class="progress-bar barra" role="progressbar" style="width: 0% " aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" id="proBar"></div>
+                        <div class="progress-bar barra" role="progressbar" style="width: 0% " aria-valuenow="25"
+                            aria-valuemin="0" aria-valuemax="100" id="proBar"></div>
                     </div>
                     <div class="time">
-                        <p>{{Math.floor(livePosition / 60)}} : {{Math.floor(livePosition % 60) < 10 ? '0' + Math.floor(livePosition % 60).toString() : Math.floor(livePosition % 60).toString()}}</p>
-                        <p>{{Math.floor(duration / 60)}} : {{Math.floor(duration % 60) < 10 ? '0' + Math.floor(duration % 60).toString() : Math.floor(duration % 60).toString()}}</p>
+                        <p>{{Math.floor(livePosition / 60)}} : {{Math.floor(livePosition % 60) < 10 ? '0' +
+                                Math.floor(livePosition % 60).toString() : Math.floor(livePosition %
+                                60).toString()}}</p>
+                                <p>{{Math.floor(duration / 60)}} : {{Math.floor(duration % 60) < 10 ? '0' +
+                                        Math.floor(duration % 60).toString() : Math.floor(duration %
+                                        60).toString()}}</p>
                     </div>
                     <div></div>
                 </div>
@@ -372,15 +377,15 @@
                     <i class="fa-solid fa-pause" v-show="paused == false" @click="pause($event)"></i>
                     <i class="fa-solid fa-play" v-show="paused == true" @click="pause($event)"></i>
                 </div>
-                
+
             </section>
 
 
         </main>
         <footer class="bg-dark fixed-bottom">
-            <div class="mini-rep" v-show="pagina != 'cancion' && nombre != ''"  >
-                <img v-bind:src="portada" alt=""@click = "pagina = 'cancion'">
-                <p @click = "pagina = 'cancion'">{{nombre}}</p>
+            <div class="mini-rep" v-show="pagina != 'cancion' && nombre != ''">
+                <img v-bind:src="portada" alt="" @click="pagina = 'cancion'">
+                <p @click="pagina = 'cancion'">{{nombre}}</p>
                 <i class="fa-solid fa-pause" v-show="paused == false" @click="pause($event)"></i>
                 <i class="fa-solid fa-play" v-show="paused == true" @click="pause($event)"></i>
             </div>
@@ -410,10 +415,22 @@
                             favorite
                         </span>
                     </div>
-                    
+
                 </div>
             </div>
         </footer>
+        <div class="toast-container position-fixed bottom-0 p-5">
+            <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="toast-header">
+                    <!-- <strong class="me-auto"><i class="bi bi-info-circle bg-danger py-1 px-2 m-1 rounded-2 text-white"></i>Login</strong>
+                    <small>inicio exitoso</small> -->
+                    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+                <div class="toast-body bg-dark text-white">
+                    {{toastMsj}}
+                </div>
+            </div>
+        </div>
     </div>
     <script src="/__/firebase/9.8.3/firebase-app-compat.js"></script>
     <script src="/__/firebase/9.8.3/firebase-database-compat.js"></script>

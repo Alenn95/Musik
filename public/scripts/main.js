@@ -16,6 +16,8 @@ const app = Vue.createApp({
             favorites: [],
             dataBase: [],
 
+            toastMsj:"",
+
             // Reproductor
             portada: "",
             nombre: "",
@@ -353,6 +355,10 @@ const app = Vue.createApp({
             var update = {};
             update['Favoritos/' + this.currentUserID + '/' + newCommentKey] = cancion;
             firebase.database().ref().update(update);
+            app.toastMsj = "¡Added to favorites! " + song.data.name
+            const toastLiveExample = document.getElementById('liveToast')
+            const toast = new bootstrap.Toast(toastLiveExample)
+            toast.show()
         },
 
 
