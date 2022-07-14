@@ -106,7 +106,7 @@
                         
                         <div class="horizontal-scroll">
                             <div v-for="item in dataBase" class="horizontal-scroll__item ">
-                                <div class="card bg-transparent" style="width: 10rem;">
+                                <div class="card bg-transparent p-1" style="width: 10rem;">
                                     <img v-bind:src="item.albumOfTrack.coverArt.sources[0].url" class="card-img-top" alt="...">
                                     <div class="card-body bg-transparent">
                                       <h5 class="letra">{{item.name}}</h5>
@@ -137,7 +137,7 @@
                     <div class="p-2 mt-2">
                         <h2 class="letra">{{userName}}</h2>
                     </div>
-                    <div v-show="!currentUserID" class="p-2 login mt-3 justify-content-center align-items-center">
+                    <div v-show="!currentUserID" class="p-2 login mt-3 justify-content-center align-items-center busqueda">
                         <div class="d-flex flex-row align-items-center justify-content-evenly">
                             <button id="quickstart-sign-in-google" v-on:click="toggleSignIn" class=" btn redes p-1">
                                 <img src="./img/google.png" alt="">

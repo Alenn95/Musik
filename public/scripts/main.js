@@ -65,7 +65,7 @@ const app = Vue.createApp({
 
         })
         window.onSpotifyWebPlaybackSDKReady = () => {
-            const token = 'BQACaePPzb9BbE1yT728n5EhFV6yzooLLWDcddHbVSdTh_OsticIyFGirii6kLjfUmwNVdqkBGexv0SOy70Gaj3w7u3WqAzoB6kFA-VO159D97gPJXmDMuGq27UbIK0oxXCEr4g_2CfLycHbPut-SaYn6Fyf4Q3e1qG9hEL47iSdLCbpckbXAqmZwvp0D1CkBBP_w1ns1-WMpSThTwCtIM6pDX8';
+            const token = 'BQCd5RlOddMiueQ-01XuLCZCO31OnviMpBsHZYMByyhJEuuJSFvyQ8q0vnPuOJ74FnFhBVlf1uZOHVT4SEnVM1V7oSId37KTahJP0Xq1z81rvW2UCc_yxRFqjfS4DXPYth4LKs2xRqY-aft_SP25xCpcX0e3mlhq2yhEJIqywZnlLgyIjcnKuET2hwtqxy__rqJQUzAbtyiqMOPiaf1isa66weo';
             const player = new Spotify.Player({
                 name: 'Web Playback SDK Quick Start Player',
                 getOAuthToken: cb => { cb(token); },
@@ -126,7 +126,7 @@ const app = Vue.createApp({
                     var uid = user.uid;
                     var providerData = user.providerData;
                     document.getElementById('quickstart-sign-in-google');
-                    document.getElementById('quickstart-sign-in').textContent = 'Sign out';
+                    document.getElementById('quickstart-sign-in')
 
                     // firebase.database().ref('Favoritos/' + this.currentUserID + '/').on("child_added", (data) => {
                     //     let favorito = data.val()

@@ -110,7 +110,7 @@ hr {
 
 
 .perfil {
-    height: 84vh;
+    min-height: 84vh;
     background-image: url("../img/fondo.jpg");
     background-attachment: scroll;
     background-size: cover;
@@ -125,7 +125,7 @@ hr {
 }
 
 .busqueda {
-    min-height: 90vh;
+    min-height: 84vh;
 }
 
 .login {
