@@ -63,7 +63,7 @@ const app = Vue.createApp({
 
         })
         window.onSpotifyWebPlaybackSDKReady = () => {
-            const token = 'BQAteTQ3T65m2pq1gWQOyt_ZkYB6EyzAnlGiXV1b4d7HL0JIz6kAdRS7sz8cNL3HZcC9IRDGp255qH7I_eZ5idky3B59SPdkPCBRJ62ZTPcgqKpW4YFeg3YBiTy2gmsG44AGXCz2GaH4Q8a50qTLPYmyriKPgR27K4gVi5CCXD08o3sFr7UFyWZQl-EEGbinetoTcxY3CY8xlF2C9zZwB6usIv8';
+            const token = 'BQCaxlko3Dg_YOYTvAJpKsuSbR9LiQ9KnyeS_YyoQNK4q5ldfdzMAprd5Q6EN33ncRD3RG5z_KBoFxBXeSqVGdf0nQO5JmgFttTvbNyupWUCJmfp7hoqQpnG_9JAbahvs7yfCeNt_sIf_owFguzOx6wLb8AfpilPC0UAoLCo8MFYSYLIaYldNHV_sEpp6AYz6u_m7JUctw3ARaTRS1EP8bqro2s';
             const player = new Spotify.Player({
                 name: 'Web Playback SDK Quick Start Player',
                 getOAuthToken: cb => { cb(token); },
@@ -532,7 +532,7 @@ grabarAudio = async () => {
         audioRecordedBase64 = res.substring(res.indexOf(',') + 1)
         app.recording = "searching"
         //recognizeRequest()
-        // searchRequest() //Esta se usa
+        searchRequest() //Esta se usa
     });
 
     audioRecorded = audio
